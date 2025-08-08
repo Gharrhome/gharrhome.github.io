@@ -17,7 +17,7 @@ This repository hosts my personal website, covering topics including:
 
 I’m passionate about exploring how technology and society can evolve together.
 
-Visit the live site at: https://gharrhome.github.io
+Visit the live site at: https://gharrhome.github.io/gharrhome
 
 ---
 
