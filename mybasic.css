@@ -1108,6 +1108,14 @@ ol ol ol ol ol
 {
 	font-size:18px;
 }
+.gharr
+{
+	border-bottom: 2px solid #000000; 
+	border-top: 2px solid #000000; 
+	color: #222222; 
+	background-color: #00b0b0; 
+	text-align: center;
+}
 .empty
 {
 	color:maroon;
