@@ -300,7 +300,11 @@ textarea{
 	margin-right: 20%;
 	margin-left: 10%;
 }
-
+.blockquote_gpt
+{
+	margin-right: 20%;
+	margin-left: 2em;
+}
 .comment_box
 {
 	margin-left: 10%;
