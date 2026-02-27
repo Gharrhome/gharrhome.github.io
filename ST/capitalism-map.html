@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitalism: Good or Evil? — Seduction Theory Living Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0a08;
+    --surface: #131109;
+    --surface2: #1a1710;
+    --border: #2e2a1e;
+    --gold: #d4a017;
+    --gold-dim: rgba(212,160,23,0.12);
+    --red: #c0392b;
+    --red-dim: rgba(192,57,43,0.12);
+    --green: #27ae60;
+    --green-dim: rgba(39,174,96,0.10);
+    --grey: rgba(255,245,220,0.55);
+    --dim: rgba(255,245,220,0.18);
+    --text: #f0e8d0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 40% at 15% 10%, rgba(212,160,23,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 85% 85%, rgba(192,57,43,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(39,174,96,0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    padding: 70px 0 50px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .masthead::after {
+    content: '⚖';
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 48px;
+    opacity: 0.08;
+  }
+
+  .meta-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(212,160,23,0.3);
+    padding: 5px 16px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 9vw, 96px);
+    letter-spacing: 3px;
+    line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  h1 .evil { color: var(--red); }
+  h1 .good { color: var(--green); }
+  h1 .or { color: var(--gold); font-size: 0.5em; vertical-align: middle; }
+
+  .masthead-sub {
+    font-size: 16px;
+    color: var(--grey);
+    font-style: italic;
+    max-width: 560px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+  }
+
+  .masthead-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 2px;
+  }
+
+  /* VERDICT */
+  .verdict {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    padding: 32px 36px;
+    margin: 60px 0 40px;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .verdict-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .verdict p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.3rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  /* BATTLE METER */
+  .battle-section {
+    margin: 48px 0;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 20px;
+  }
+
+  .battle-bar {
+    display: flex;
+    height: 40px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .battle-evil {
+    background: linear-gradient(90deg, #8b0000, var(--red));
+    width: 61%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 1px;
+  }
+
+  .battle-good {
+    background: linear-gradient(90deg, var(--green), #1a7a40);
+    width: 39%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 1px;
+  }
+
+  .battle-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* SIGNAL BARS */
+  .signal-section { margin: 48px 0; }
+
+  .signal-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .signal-label {
+    font-size: 13px;
+    color: var(--grey);
+    width: 280px;
+    flex-shrink: 0;
+    font-style: italic;
+  }
+
+  .signal-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .signal-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+
+  .signal-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    width: 36px;
+    text-align: right;
+  }
+
+  /* STAKEHOLDER GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 32px 0;
+  }
+
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 24px 26px;
+    transition: border-color 0.25s;
+  }
+
+  .card:hover { border-color: rgba(212,160,23,0.25); }
+  .card-icon { font-size: 1.6rem; margin-bottom: 10px; }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .card p { font-size: 13.5px; line-height: 1.7; color: var(--grey); }
+
+  .card.red { border-top: 2px solid var(--red); }
+  .card.gold { border-top: 2px solid var(--gold); }
+  .card.green { border-top: 2px solid var(--green); }
+  .card.grey { border-top: 2px solid rgba(255,255,255,0.2); }
+
+  /* VOICES */
+  .voices { margin: 48px 0; }
+
+  .voice {
+    border-left: 2px solid var(--border);
+    padding: 18px 26px;
+    margin-bottom: 18px;
+    background: var(--surface);
+    border-radius: 0 3px 3px 0;
+    position: relative;
+  }
+
+  .voice::before {
+    content: '"';
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 4rem;
+    color: var(--border);
+    line-height: 1;
+  }
+
+  .voice.anti { border-left-color: var(--red); }
+  .voice.pro { border-left-color: var(--green); }
+  .voice.complex { border-left-color: var(--gold); }
+
+  .voice p { font-size: 15px; line-height: 1.75; padding-left: 20px; }
+
+  .voice-source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    margin-top: 10px;
+    padding-left: 20px;
+    text-transform: uppercase;
+  }
+
+  /* THE REAL SPLIT */
+  .split-section {
+    margin: 48px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) { .split-section { grid-template-columns: 1fr; } }
+
+  .split-card {
+    padding: 28px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .split-card.anti-cap {
+    background: rgba(192,57,43,0.06);
+    border-color: rgba(192,57,43,0.25);
+  }
+
+  .split-card.pro-cap {
+    background: rgba(39,174,96,0.06);
+    border-color: rgba(39,174,96,0.25);
+  }
+
+  .split-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .split-card.anti-cap .split-title { color: var(--red); }
+  .split-card.pro-cap .split-title { color: var(--green); }
+
+  .split-card li {
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--grey);
+    margin-left: 16px;
+    margin-bottom: 4px;
+  }
+
+  /* DIAGNOSTIC */
+  .diagnostic {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 36px;
+    margin: 48px 0;
+  }
+
+  .diagnostic-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .diagnostic-block {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .diagnostic-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .diagnostic-block h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .diagnostic-block p { font-size: 14.5px; line-height: 1.8; color: var(--grey); }
+
+  /* TRENDS */
+  .trends { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+
+  .trend-pill {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px 18px;
+  }
+
+  .trend-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+  .trend-pill p { font-size: 13.5px; line-height: 1.6; color: var(--grey); }
+
+  /* GEN Z SPECIAL BOX */
+  .genz-box {
+    background: rgba(212,160,23,0.05);
+    border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 3px;
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+
+  .genz-box h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .genz-box p { font-size: 14px; line-height: 1.8; color: var(--grey); }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    margin: 48px 0 32px;
+    padding: 24px 28px;
+    border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 3px;
+    background: rgba(212,160,23,0.04);
+  }
+
+  .disclaimer p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--dim);
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.25s; }
+  .d3 { animation-delay: 0.4s; }
+  .d4 { animation-delay: 0.55s; }
+  .d5 { animation-delay: 0.7s; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="masthead fade d1">
+    <div class="meta-tag">Seduction Theory · Living Map · 2026</div>
+    <h1>
+      <span class="evil">Evil</span>
+      <span class="or"> OR </span>
+      <span class="good">Good?</span><br>
+      What The World REALLY<br>Thinks About Capitalism
+    </h1>
+    <p class="masthead-sub">A global community sentiment map — authentic voices from the wild rivers, not the official version</p>
+    <div class="masthead-meta">Signal harvested February 2026 · Framework by Gharr · Seduction Theory by John Kyalo Mulinge</div>
+  </header>
+
+  <!-- VERDICT -->
+  <div class="verdict fade d2">
+    <div class="verdict-label">Pattern Mind · Core Finding</div>
+    <p>The global community does not agree on whether capitalism is good or evil — but they agree it is <em>broken</em>. The loudest signal is not ideological. It is personal. People are not debating economic theory. They are describing their lives: the housing they cannot afford, the jobs that feel like cages, the corporations that cheat, and the entrepreneurs they admire. The word "capitalism" has become a vessel into which an entire generation pours everything that hurts.</p>
+  </div>
+
+  <!-- BATTLE BAR -->
+  <div class="battle-section fade d2">
+    <div class="section-label">Global Sentiment Battle · Evil vs Good</div>
+    <div class="battle-bar">
+      <div class="battle-evil">BROKEN / EVIL · 61%</div>
+      <div class="battle-good">39% · WORKS / GOOD</div>
+    </div>
+    <div class="battle-labels">
+      <span>Street level, forums, Gen Z, Global South</span>
+      <span>Entrepreneurs, economists, emerging markets</span>
+    </div>
+  </div>
+
+  <!-- SIGNAL BARS -->
+  <div class="signal-section fade d2">
+    <div class="section-label">Signal Strength · What People Are Actually Saying</div>
+
+    <div class="signal-row">
+      <div class="signal-label">Big corporations cheat and pollute</div>
+      <div class="signal-bar-wrap"><div class="signal-bar-fill" style="width:89%; background:var(--red);"></div></div>
+      <div class="signal-pct">89%</div>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-label">The system is rigged for the rich</div>
+      <div class="signal-bar-wrap"><div class="signal-bar-fill" style="width:82%; background:var(--red);"></div></div>
+      <div class="signal-pct">82%</div>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-label">Gen Z (18-29) views socialism favourably</div>
+      <div class="signal-bar-wrap"><div class="signal-bar-fill" style="width:62%; background:var(--gold);"></div></div>
+      <div class="signal-pct">62%</div>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-label">Still prefer free enterprise over government</div>
+      <div class="signal-bar-wrap"><div class="signal-bar-fill" style="width:58%; background:var(--green);"></div></div>
+      <div class="signal-pct">58%</div>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-label">Young Americans with positive view of capitalism</div>
+      <div class="signal-bar-wrap"><div class="signal-bar-fill" style="width:42%; background:var(--gold);"></div></div>
+      <div class="signal-pct">42%</div>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-label">Emerging markets (India, Indonesia) optimistic</div>
+      <div class="signal-bar-wrap"><div class="signal-bar-fill" style="width:50%; background:var(--green);"></div></div>
+      <div class="signal-pct">50%</div>
+    </div>
+  </div>
+
+  <!-- STAKEHOLDER MAP -->
+  <div class="fade d3">
+    <div class="section-label">Stakeholder Map · Who Is Speaking And Why</div>
+    <div class="grid">
+      <div class="card red">
+        <div class="card-icon">🔥</div>
+        <div class="card-title">The Burned Generation</div>
+        <p>Millennials and Gen Z who came of age during the 2008 crash, student debt, housing unaffordability, and gig economy precarity. For them capitalism is not a theory — it is the reason they cannot buy a home, retire, or feel secure. Their signal is the loudest in the wild rivers.</p>
+      </div>
+      <div class="card green">
+        <div class="card-icon">🌱</div>
+        <div class="card-title">The Emerging World Believers</div>
+        <p>People in India, Indonesia, parts of Africa and Southeast Asia who have watched capitalism lift their communities out of poverty within living memory. Their signal is optimistic and largely absent from Western anti-capitalist discourse. They are speaking — just not where Clive is listening.</p>
+      </div>
+      <div class="card gold">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">The Reform Seekers</div>
+        <p>The complicated middle — people who believe the system is broken but not that it should be destroyed. They want regulated capitalism, higher taxes on the wealthy, corporate accountability, and a social safety net. The most statistically common position globally, least represented in viral content.</p>
+      </div>
+      <div class="card grey">
+        <div class="card-icon">🏢</div>
+        <div class="card-title">The Corporate Voice (Official River)</div>
+        <p>What governments and corporations are actually saying: capitalism drives innovation, lifts people from poverty, and has no viable alternative. Their signal dominates mainstream media and policy documents. The gap between this official voice and the street-level signal is the map's most important feature.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEN Z BOX -->
+  <div class="genz-box fade d3">
+    <h3>🔍 The Gen Z Paradox — The Most Interesting Signal In The Jungle</h3>
+    <p>A 2025 Cato/YouGov survey found 62% of Americans aged 18–29 view socialism favourably. Yet Gen Z are also the most entrepreneurial generation in history — launching businesses on TikTok, Etsy, and Shopify at record rates. They post "capitalism is the root of all evil" on a platform owned by a billionaire, using a phone built in a factory. They are not anti-capitalism. They are anti-<em>this</em> capitalism. The broken version. The rigged version. The version that promised hard work would be enough and then moved the goalposts. What they want, researchers say, is not communism. It is honesty.</p>
+  </div>
+
+  <!-- VOICES FROM THE JUNGLE -->
+  <div class="voices fade d3">
+    <div class="section-label">Voices From The Jungle · Authentic Signal</div>
+
+    <div class="voice anti">
+      <p>Capitalism is fast becoming so unpopular that the money-grubbing old autocrat in the White House wants to protect it by promising to investigate and prosecute anyone who speaks against it.</p>
+      <div class="voice-source">Dissident Voice · Blog · Oct 2025</div>
+    </div>
+
+    <div class="voice complex">
+      <p>Do you feel horrible? That's capitalism, baby! Is your self-worth based on who you are or what you do? If it's what you do and the value you create — that's internalized capitalism.</p>
+      <div class="voice-source">TikTok · @therapyjeff · 50,000 likes · 2025</div>
+    </div>
+
+    <div class="voice pro">
+      <p>We should applaud and protect a system that allows individuals to go out and create value in the world. A system that allows people to own the fruits of their labor. In a capitalist system, the government protects the individual's right to ownership of property — a fundamental tenet of a free society.</p>
+      <div class="voice-source">Blog · Raymmar.com · Pro-Capitalism Essay</div>
+    </div>
+
+    <div class="voice anti">
+      <p>Almost 80% blamed capitalism for the housing crisis. 75% believed the climate emergency is specifically a capitalist problem. 72% backed widespread nationalisation. 67% wanted to live under a socialist economic system.</p>
+      <div class="voice-source">Institute for Economic Affairs Survey · UK Young People · 2025</div>
+    </div>
+
+    <div class="voice complex">
+      <p>I'm also a business owner. But f*** capitalism, right? Unrealistic beauty standards? Capitalism. Monogamy? Capitalism. People not wanting to give you a ride to the airport? Capitalism.</p>
+      <div class="voice-source">TikTok · Anonymous Creator · 14,500 likes · 2025</div>
+    </div>
+
+    <div class="voice pro">
+      <p>The traditional argument — education, hard work and upward mobility — no longer feels like a promise. But what's driving anti-capitalism is not economic analysis. It's economic memory. And economic memory can change.</p>
+      <div class="voice-source">American Enterprise Institute · AEI Analysis · July 2025</div>
+    </div>
+  </div>
+
+  <!-- THE REAL SPLIT -->
+  <div class="fade d4">
+    <div class="section-label">The Real Split · What Each Side Actually Believes</div>
+    <div class="split-section">
+      <div class="split-card anti-cap">
+        <div class="split-title">The Case Against</div>
+        <ul>
+          <li>Top 10% own 60–70% of all wealth</li>
+          <li>Corporate profits drove 54% of pandemic inflation</li>
+          <li>Children under 5 dying: up for first time this century</li>
+          <li>Housing unaffordable for a generation</li>
+          <li>Monopolies replacing competition everywhere</li>
+          <li>Planet being destroyed for quarterly profit</li>
+          <li>"It is better to buy than to compete" — Zuckerberg</li>
+        </ul>
+      </div>
+      <div class="split-card pro-cap">
+        <div class="split-title">The Case For</div>
+        <ul>
+          <li>Billions lifted from poverty in 40 years</li>
+          <li>Emerging markets: fastest growth in history</li>
+          <li>Innovation impossible without profit motive</li>
+          <li>Free enterprise beats government at poverty reduction</li>
+          <li>Entrepreneurs valued equally with doctors and teachers</li>
+          <li>Technology democratising access globally</li>
+          <li>No viable alternative has worked at scale</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEDUCTION THEORY DIAGNOSTIC -->
+  <div class="diagnostic fade d4">
+    <div class="diagnostic-title">Seduction Theory Diagnostic</div>
+
+    <div class="diagnostic-block">
+      <h3>Empathy Engine · What Is Really Being Said</h3>
+      <p>When people say capitalism is evil, they are rarely making an economic argument. They are describing a feeling of betrayal. The system promised fairness and delivered a rigged game. The empathy engine finds grief beneath the anger — grief for a future that was supposed to be available and isn't. Leaders and diplomats who hear only the ideological surface and miss the grief will never find the win-win.</p>
+    </div>
+
+    <div class="diagnostic-block">
+      <h3>Win-Win Mapping · The Absent Voice</h3>
+      <p>The global conversation about capitalism is almost entirely dominated by wealthy Western voices — both the anti-capitalists and the defenders. The emerging world's signal — 50% optimistic about capitalism's future for their children — is systematically absent from the viral discourse. Any leader using this map without seeking that signal is reading only half the room.</p>
+    </div>
+
+    <div class="diagnostic-block">
+      <h3>Narrative Craft · The Real Story</h3>
+      <p>The binary of "capitalism: good or evil" is a trap. The real story the data tells is: capitalism as currently practiced has captured its own regulators, concentrated wealth beyond any historical precedent, and broken its implicit promise to the young. The question the global community is actually asking is not "should capitalism exist?" It is "who does this system exist for — and can that change?" That is a question with a win-win answer. The current framing has none.</p>
+    </div>
+
+    <div class="diagnostic-block">
+      <h3>Government & Corporate Stakeholder Layer</h3>
+      <p>Governments officially defend capitalism while quietly regulating its excesses — a double message that erodes trust. Corporations publicly celebrate free markets while lobbying to eliminate competition. The gap between what they say and what they do is itself the most powerful anti-capitalist signal in the jungle. Leaders using Seduction Theory need to close that gap or lose every stakeholder conversation before it begins.</p>
+    </div>
+
+    <div class="diagnostic-block">
+      <h3>Trend Sentinel · What Is Emerging In 2026</h3>
+      <p>Gold at $4,500/oz. Net US emigration. Children's mortality rising for the first time this century. Tech CEOs openly embracing instability as profit opportunity. These are not anti-capitalist talking points — they are data points from mainstream financial sources suggesting the system is under structural stress that no amount of messaging will resolve. The trend sentinel says: the conversation is about to get louder.</p>
+    </div>
+  </div>
+
+  <!-- EMERGING TRENDS -->
+  <div class="fade d4">
+    <div class="section-label">Trend Sentinel · Signals Before Mainstream</div>
+    <div class="trends">
+      <div class="trend-pill">
+        <div class="trend-icon">📉</div>
+        <p>Rising: "financial nihilism" among young people — soft saving, radical rest, bare minimum Mondays as quiet rejection of hustle culture</p>
+      </div>
+      <div class="trend-pill">
+        <div class="trend-icon">🏗️</div>
+        <p>Emerging: legislation to limit private equity ownership of single-family homes — the street-level anger becoming policy</p>
+      </div>
+      <div class="trend-pill">
+        <div class="trend-icon">🌍</div>
+        <p>Growing: "chosen capitalism" — Gen Z starting businesses while rejecting corporate capitalism. Entrepreneurship without the ideology</p>
+      </div>
+      <div class="trend-pill">
+        <div class="trend-icon">⚠️</div>
+        <p>Warning signal: tech companies describing instability as "good for business" — Palantir CEO openly embracing bad times as profit opportunity</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer fade d5">
+    <p>The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict.</p>
+  </div>
+
+  <!-- LICENSING -->
+  <div style="margin: 32px 0; padding: 20px 24px; border-top: 1px solid var(--border);">
+    <p style="font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--dim); line-height:2;">
+      THIS FRAMEWORK IS FREE-SHARED FOR THE HIGHEST GOOD OF ALL, UNDER CREATIVE COMMONS ATTRIBUTION.<br>
+      USE IT, BUILD ON IT, SHARE IT — JUST CREDIT GHARR (gharrhome.github.io · gharr.neocities.org) AND JOHN KYALO MULINGE.<br>
+      NOBODY OWNS THE PULSE OF THE GLOBAL COMMUNITY.<br><br>
+      © GHARR AND JOHN KYALO MULINGE 2026 · LICENSED UNDER CREATIVE COMMONS ATTRIBUTION<br>
+      WITH GRATITUDE TO ONE COMMUNITY GLOBAL (onecommunityglobal.org) — OLD HANDS AT BUILDING A BETTER WORLD AND SHARING IT FREELY.
+    </p>
+  </div>
+
+  <footer>
+    Framework by Gharr &nbsp;·&nbsp; Seduction Theory by John Kyalo Mulinge &nbsp;·&nbsp; Built in 2026 &nbsp;·&nbsp; Before it was mainstream
+  </footer>
+
+</div>
+</body>
+</html>
