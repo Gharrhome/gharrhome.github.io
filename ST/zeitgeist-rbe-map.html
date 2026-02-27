@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Zeitgeist Question — Global Sentiment Map 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0d1319;
+    --border: #1a2332;
+    --accent-gold: #c9a84c;
+    --accent-teal: #2dd4bf;
+    --accent-red: #ef4444;
+    --accent-green: #22c55e;
+    --accent-muted: #64748b;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --text-faint: #475569;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* grid noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* HEADER */
+  header {
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 5vw, 56px);
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  h1 span.highlight {
+    color: var(--accent-gold);
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-dim);
+    max-width: 640px;
+    line-height: 1.7;
+  }
+
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 28px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+  }
+
+  .meta-bar span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); display: inline-block; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* SIGNAL SUMMARY */
+  .signal-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+  }
+
+  .signal-card {
+    background: var(--surface);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .signal-card:nth-child(1) { animation-delay: 0.1s; }
+  .signal-card:nth-child(2) { animation-delay: 0.2s; }
+  .signal-card:nth-child(3) { animation-delay: 0.3s; }
+  .signal-card:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(16px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+
+  .signal-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .signal-card.gold::after { background: var(--accent-gold); }
+  .signal-card.teal::after { background: var(--accent-teal); }
+  .signal-card.red::after { background: var(--accent-red); }
+  .signal-card.green::after { background: var(--accent-green); }
+
+  .signal-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+  .signal-value { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; }
+  .signal-value.gold { color: var(--accent-gold); }
+  .signal-value.teal { color: var(--accent-teal); }
+  .signal-value.red { color: var(--accent-red); }
+  .signal-value.green { color: var(--accent-green); }
+  .signal-sub { font-size: 11px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+
+  /* SECTION HEADERS */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+  }
+
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* STAKEHOLDER MAP */
+  .stakeholder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .stakeholder {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    position: relative;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .stakeholder:nth-child(1) { animation-delay: 0.1s; }
+  .stakeholder:nth-child(2) { animation-delay: 0.2s; }
+  .stakeholder:nth-child(3) { animation-delay: 0.3s; }
+  .stakeholder:nth-child(4) { animation-delay: 0.4s; }
+  .stakeholder:nth-child(5) { animation-delay: 0.5s; }
+  .stakeholder:nth-child(6) { animation-delay: 0.6s; }
+
+  .stakeholder-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .stakeholder-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .sentiment-pill {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .pill-hopeful { background: rgba(34,197,94,0.15); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+  .pill-tired { background: rgba(239,68,68,0.12); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+  .pill-skeptic { background: rgba(100,116,139,0.15); color: var(--accent-muted); border: 1px solid rgba(100,116,139,0.3); }
+  .pill-evolving { background: rgba(45,212,191,0.12); color: var(--accent-teal); border: 1px solid rgba(45,212,191,0.3); }
+  .pill-absent { background: rgba(201,168,76,0.1); color: var(--accent-gold); border: 1px solid rgba(201,168,76,0.3); }
+
+  .stakeholder-quote {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--text-dim);
+    font-style: italic;
+    border-left: 2px solid var(--border);
+    padding-left: 14px;
+    margin-bottom: 14px;
+  }
+
+  .stakeholder-analysis {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text-faint);
+  }
+
+  .bar-label { font-size: 10px; color: var(--text-faint); letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
+  .bar-track { background: var(--border); height: 4px; border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  .bar-gold { background: var(--accent-gold); }
+  .bar-teal { background: var(--accent-teal); }
+  .bar-red { background: var(--accent-red); }
+  .bar-muted { background: var(--accent-muted); }
+
+  /* TIMELINE */
+  .timeline { margin-bottom: 56px; }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 140px 1px 1fr;
+    gap: 0 24px;
+    margin-bottom: 0;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .timeline-row:nth-child(1){animation-delay:.1s}
+  .timeline-row:nth-child(2){animation-delay:.2s}
+  .timeline-row:nth-child(3){animation-delay:.3s}
+  .timeline-row:nth-child(4){animation-delay:.4s}
+  .timeline-row:nth-child(5){animation-delay:.5s}
+  .timeline-row:nth-child(6){animation-delay:.6s}
+  .timeline-row:nth-child(7){animation-delay:.7s}
+
+  .t-date {
+    font-size: 11px;
+    color: var(--accent-gold);
+    letter-spacing: 1px;
+    padding: 20px 0 20px;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .t-spine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .t-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    border: 2px solid var(--bg);
+    margin-top: 24px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .t-line {
+    flex: 1;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .t-content {
+    padding: 18px 0 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .t-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .t-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* SEDUCTION THEORY PANEL */
+  .seduction-panel {
+    background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(13,19,25,1) 60%);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 40px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  .seduction-panel h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .seduction-body {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--text-dim);
+    max-width: 740px;
+  }
+
+  .seduction-body p { margin-bottom: 16px; }
+  .seduction-body strong { color: var(--text); }
+
+  /* VERDICT BAR */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+  }
+
+  .verdict-cell {
+    background: var(--surface);
+    padding: 28px 20px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .verdict-cell:nth-child(1){animation-delay:.1s}
+  .verdict-cell:nth-child(2){animation-delay:.2s}
+  .verdict-cell:nth-child(3){animation-delay:.3s}
+
+  .verdict-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 12px; }
+  .verdict-text { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+  .verdict-text strong { color: var(--accent-gold); display: block; font-family: 'Syne', sans-serif; font-size: 15px; margin-bottom: 8px; }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--text-faint);
+    font-style: italic;
+    position: relative;
+  }
+
+  .disclaimer::before {
+    content: '⚠';
+    position: absolute;
+    top: -11px;
+    left: 24px;
+    background: var(--bg);
+    padding: 0 8px;
+    font-size: 14px;
+    font-style: normal;
+    color: var(--accent-gold);
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  /* RIVERS ROW */
+  .rivers-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .river-tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+    background: var(--surface);
+  }
+
+  .river-tag.active {
+    border-color: rgba(201,168,76,0.4);
+    color: var(--accent-gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  @media (max-width: 600px) {
+    .seduction-panel { padding: 24px; }
+    .signal-value { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="eyebrow">Seduction Theory · Global Sentiment Map · 2026</div>
+    <h1>What Ever Happened to<br><span class="highlight">The Zeitgeist Movement</span><br>& the World Without Money?</h1>
+    <p class="subtitle">A full-spectrum stakeholder map of authentic global sentiment around The Zeitgeist Movement, Peter Joseph, the Natural Law Resource-Based Economy — and the enduring question: does anyone still believe a world without money is possible?</p>
+    <div class="meta-bar">
+      <span><span class="dot"></span> Signal harvested Feb 2026</span>
+      <span>— Rivers scanned: Forums · Blogs · Video comments · Podcasts · Research</span>
+      <span>— Framework: Seduction Theory by John Kyalo Mulinge</span>
+    </div>
+  </header>
+
+  <!-- RIVERS SCANNED -->
+  <div class="section-head">
+    <h2>Rivers Scanned</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="rivers-row">
+    <span class="river-tag active">TZM Forum (tzm.one)</span>
+    <span class="river-tag active">Reddit r/Zeitgeist</span>
+    <span class="river-tag active">Peter Joseph Substack</span>
+    <span class="river-tag active">YouTube Comments</span>
+    <span class="river-tag active">Moneyless Society Blog</span>
+    <span class="river-tag active">Goodreads Reviews</span>
+    <span class="river-tag active">Medium / Research Papers</span>
+    <span class="river-tag">Mainstream Press</span>
+    <span class="river-tag">Venture Capital Discourse</span>
+  </div>
+
+  <!-- SIGNAL SUMMARY CARDS -->
+  <div class="signal-summary">
+    <div class="signal-card gold">
+      <div class="signal-label">Movement Status</div>
+      <div class="signal-value gold">Alive—</div>
+      <div class="signal-sub">But fractured. Fully decentralised since 2023. No global admin. No Z-Day flagship event.</div>
+    </div>
+    <div class="signal-card teal">
+      <div class="signal-label">Peter Joseph Activity</div>
+      <div class="signal-value teal">Active</div>
+      <div class="signal-sub">Revolution Now! podcast, Substack, Zeitgeist Requiem (2024 LA premiere, online pending).</div>
+    </div>
+    <div class="signal-card red">
+      <div class="signal-label">Mainstream Belief</div>
+      <div class="signal-value red">Low</div>
+      <div class="signal-sub">No RBE pilot has ever been built. Zero scaled implementations in 17 years of advocacy.</div>
+    </div>
+    <div class="signal-card green">
+      <div class="signal-label">Idea Vitality</div>
+      <div class="signal-value green">High</div>
+      <div class="signal-sub">Moneyless Society orgs, new books, Discord communities, AI + automation conversations keep it breathing.</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-head">
+    <h2>What Actually Happened — The Timeline</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-row">
+      <div class="t-date">2008–2011</div>
+      <div class="t-spine"><div class="t-dot"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">Peak Viral Moment</div>
+        <div class="t-desc">Zeitgeist: Addendum launches TZM. Within three years the movement claims chapters in 60+ countries. Z-Day 2009 in New York sells out 900 seats. Once described by major press as the largest online grassroots movement in the world. Jacque Fresco's Venus Project is TZM's spiritual blueprint.</div>
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="t-date">2011</div>
+      <div class="t-spine"><div class="t-dot" style="background:var(--accent-red)"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">The Venus Project Split</div>
+        <div class="t-desc">TZM and The Venus Project publicly break in an apparent power struggle. Peter Joseph's own words at the time: "Without TZM, TVP doesn't exist — it has nothing but ideas." The movement continues independently. Fresco's Venus Project drifts toward educator-documentary mode. The ideological umbrella fractures into competing sub-communities.</div>
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="t-date">2014</div>
+      <div class="t-spine"><div class="t-dot" style="background:var(--accent-teal)"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">The Orientation Guide</div>
+        <div class="t-desc">TZM publishes its 323-page Orientation Guide — a dense systems-science text drawing on ~800 sources. Critics call it unreadable. Supporters call it the movement's intellectual backbone. Online engagement peaks then slowly plateaus as the movement fails to translate theory into practice.</div>
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="t-date">2017–2020</div>
+      <div class="t-spine"><div class="t-dot"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">Shift to Long-Form Critique</div>
+        <div class="t-desc">Joseph publishes The New Human Rights Movement (2017, BenBella Books). Launches Revolution Now! podcast (2020). Releases InterReflections film. The movement itself quiets, but Peter Joseph personally shifts to a Substack-and-podcast intellectual mode — smaller audience, deeper engagement.</div>
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="t-date">2023</div>
+      <div class="t-spine"><div class="t-dot" style="background:var(--accent-gold)"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">TZM Formally Decentralises</div>
+        <div class="t-desc">The Zeitgeist Movement disbands all global administration. No more official global Z-Day. No central coordinating body. The TZM forum (tzm.one) remains. Some community members celebrate this as ideological consistency — a "leaderless" movement finally acting leaderless. Others see it as quiet institutional death.</div>
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="t-date">March 2024</div>
+      <div class="t-spine"><div class="t-dot" style="background:var(--accent-teal)"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">Zeitgeist Requiem Premieres in LA</div>
+        <div class="t-desc">The fourth Zeitgeist film premieres in Los Angeles. Online release delayed due to licensing issues — expected early 2025, still not widely available at time of this map. No confirmed streaming platform. Limited reviews. Fans on the TZM forum express frustration with the delay and reduced reach vs. earlier films which hit Netflix.</div>
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="t-date">2025–2026</div>
+      <div class="t-spine"><div class="t-dot" style="background:var(--accent-green)"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-title">The Idea Refuses to Die</div>
+        <div class="t-desc">Peter Joseph publishes "Integral" — a federated, post-monetary cooperative economy framework drawing on cybernetics, systems science, and AI. New orgs like Moneyless Society (US nonprofit), Sharebay (open-access exchange), and a wave of mutual-aid Discord servers keep the RBE conversation alive for a new, younger generation radicalised by inequality and climate anxiety.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STAKEHOLDER MAP -->
+  <div class="section-head">
+    <h2>Stakeholder Map — Who Is Saying What</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="stakeholder-grid">
+
+    <div class="stakeholder">
+      <div class="stakeholder-top">
+        <div class="stakeholder-name">The Original Believers<br><span style="font-size:11px;font-weight:400;color:var(--text-faint)">2008–2012 TZM veterans</span></div>
+        <span class="sentiment-pill pill-tired">Tired but still</span>
+      </div>
+      <div class="bar-label">Commitment Level</div>
+      <div class="bar-track"><div class="bar-fill bar-muted" style="width:45%"></div></div>
+      <div class="stakeholder-quote">"I've been saying this since Addendum dropped. The ideas are right. We just never built anything real. That's the wound."</div>
+      <div class="stakeholder-analysis">These are the grey-beards of the movement. They still believe the critique of monetary systems is correct — but 17 years of no pilot city, no scaled community, no practical test case has left them intellectually committed and emotionally depleted. They engage in forums. They don't evangelise at parties anymore.</div>
+    </div>
+
+    <div class="stakeholder">
+      <div class="stakeholder-top">
+        <div class="stakeholder-name">Gen Z Rediscoverers<br><span style="font-size:11px;font-weight:400;color:var(--text-faint)">Found TZM via YouTube 2020+</span></div>
+        <span class="sentiment-pill pill-hopeful">Energised</span>
+      </div>
+      <div class="bar-label">Belief in Possibility</div>
+      <div class="bar-track"><div class="bar-fill bar-green" style="width:78%"></div></div>
+      <div class="stakeholder-quote">"Capitalism is visibly failing. Climate, housing, mental health — the old system's not working. This actually makes sense to me."</div>
+      <div class="stakeholder-analysis">The youngest cohort. They didn't live through the 2009 hype cycle so they're not cynical about the movement's failed promises. They encounter RBE ideas through YouTube rabbit holes, anti-capitalism TikTok, and post-COVID inequality discourse. The idea feels fresh to them. They are the wind keeping this alive.</div>
+    </div>
+
+    <div class="stakeholder">
+      <div class="stakeholder-top">
+        <div class="stakeholder-name">Mainstream Economists<br><span style="font-size:11px;font-weight:400;color:var(--text-faint)">Academic & institutional</span></div>
+        <span class="sentiment-pill pill-skeptic">Dismissive</span>
+      </div>
+      <div class="bar-label">Engagement Level</div>
+      <div class="bar-track"><div class="bar-fill bar-muted" style="width:12%"></div></div>
+      <div class="stakeholder-quote">"The socialist calculation problem was solved in 1920 — you cannot allocate resources without price signals. This is not a new idea."</div>
+      <div class="stakeholder-analysis">Mainstream economics barely acknowledges TZM exists. When it does, it invokes Hayek's knowledge problem and the failure of Soviet central planning. The "no implementation" fact is damning in their eyes. RBE proponents counter that cybernetics and AI change the calculus entirely — but this debate remains unresolved in academic literature.</div>
+    </div>
+
+    <div class="stakeholder">
+      <div class="stakeholder-top">
+        <div class="stakeholder-name">Peter Joseph Himself<br><span style="font-size:11px;font-weight:400;color:var(--text-faint)">Filmmaker, theorist, founder</span></div>
+        <span class="sentiment-pill pill-evolving">Evolving</span>
+      </div>
+      <div class="bar-label">Output Activity</div>
+      <div class="bar-track"><div class="bar-fill bar-teal" style="width:70%"></div></div>
+      <div class="stakeholder-quote">"Our collective society is producing outcomes that no one intends due to system functions that go unseen. That is the failure of incrementalism."</div>
+      <div class="stakeholder-analysis">Joseph has shifted from mass movement organiser to intellectual broadcaster. His Substack, podcast and Medium channel reach a smaller but more engaged audience. His new framework, Integral, is more technically rigorous than earlier Zeitgeist films — an attempt to pre-empt "that's just communism" critiques by grounding it in cybernetics. The Annual Zeitgeist Media Festival is on indefinite hiatus.</div>
+    </div>
+
+    <div class="stakeholder">
+      <div class="stakeholder-top">
+        <div class="stakeholder-name">Mutual Aid Organisers<br><span style="font-size:11px;font-weight:400;color:var(--text-faint)">IRL community builders</span></div>
+        <span class="sentiment-pill pill-hopeful">Quietly Building</span>
+      </div>
+      <div class="bar-label">Practical Action</div>
+      <div class="bar-track"><div class="bar-fill bar-green" style="width:65%"></div></div>
+      <div class="stakeholder-quote">"Stop waiting for the movement. Start the free meal. Start the tool library. Build it in your street."</div>
+      <div class="stakeholder-analysis">Groups like Appalachian Community Meals, Sharebay, and local free-store networks represent the practical edge of post-monetary thinking. They rarely invoke TZM or Jacque Fresco by name, but they embody the principles. This is arguably TZM's greatest legacy — inspiring a generation of local actors who stopped theorising and started operating.</div>
+    </div>
+
+    <div class="stakeholder">
+      <div class="stakeholder-top">
+        <div class="stakeholder-name">The Absent Majority<br><span style="font-size:11px;font-weight:400;color:var(--text-faint)">Everyone not in this conversation</span></div>
+        <span class="sentiment-pill pill-absent">Silent Signal</span>
+      </div>
+      <div class="bar-label">Awareness of RBE</div>
+      <div class="bar-track"><div class="bar-fill bar-muted" style="width:4%"></div></div>
+      <div class="stakeholder-quote">"A world without money? That's communism. Or a video game. I've got rent due Friday."</div>
+      <div class="stakeholder-analysis">The silence of the non-participant is the map's most important data point. Billions of people navigating housing crises, inflation, and precarious work are the exact demographic TZM's critique is aimed at — and they are not showing up in the movement's discourse. The translation gap between elegant theory and lived desperation has never been bridged.</div>
+    </div>
+
+  </div>
+
+  <!-- SEDUCTION THEORY DIAGNOSTIC -->
+  <div class="seduction-panel">
+    <h3>⟡ Seduction Theory Diagnostic — What The Stakeholder Map Reveals</h3>
+    <div class="seduction-body">
+      <p><strong>The Vision Was Right. The Vehicle Stalled.</strong> The Zeitgeist Movement identified something real: that monetary systems create structural incentives toward waste, inequality, and ecological destruction that individual moral choices cannot fix. This critique has only been validated by events since 2008. And yet — seventeen years later — no resource-based community exists at any meaningful scale. The gap between the map and the territory is enormous.</p>
+
+      <p><strong>The Movement Became Its Own Contradiction.</strong> TZM advocated for decentralised, systems-level thinking while operating with centralised leadership and cult-of-personality dynamics around Peter Joseph. When the organisation formally decentralised in 2023, it was both ideologically honest and practically dissolving. What remained was an idea without an institution.</p>
+
+      <p><strong>The Absent Voices Are The Point.</strong> The most radicalised-by-inequality people — precarious workers, climate refugees, the global poor — are not in this conversation. They are the ones TZM claimed to speak for. Their absence from movement forums and Discord servers is the map's loudest signal. Ideas that cannot reach the people they are designed to serve have a translation problem, not just a marketing problem.</p>
+
+      <p><strong>The Idea Has Dispersed, Not Died.</strong> RBE thinking now flows through mutual aid networks, degrowth academia, open-source hardware communities, post-scarcity AI discourse, and UBI advocacy — often without acknowledging TZM. This dispersal is a sign of ideological maturation. The Zeitgeist films were the seed pod. The ideas are the seeds. They have scattered.</p>
+
+      <p><strong>The AI Wildcard.</strong> Peter Joseph's Integral framework and the broader automation-as-abundance argument now carries more credibility than it did in 2009, because automation is visibly happening. The question of whether AI-driven post-scarcity will liberate people or simply extract more from them is the live debate that keeps RBE ideas in circulation in 2026.</p>
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="section-head">
+    <h2>Global Community Verdict — 2026</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="verdict-grid">
+    <div class="verdict-cell">
+      <div class="verdict-label">The Organisation</div>
+      <div class="verdict-text">
+        <strong>Decentralised into invisibility</strong>
+        TZM no longer functions as a coherent global body. Its forum exists. Local chapters sometimes meet. Peter Joseph continues solo. The institutional movement is effectively over.
+      </div>
+    </div>
+    <div class="verdict-cell">
+      <div class="verdict-label">The Idea</div>
+      <div class="verdict-text">
+        <strong>More relevant than ever</strong>
+        The critique of monetary capitalism has been empirically reinforced by 2008, COVID, climate breakdown, and the 2020s inequality surge. The idea is alive in new containers — degrowth, mutual aid, post-scarcity, Integral.
+      </div>
+    </div>
+    <div class="verdict-cell">
+      <div class="verdict-label">The Belief</div>
+      <div class="verdict-text">
+        <strong>Minority but growing</strong>
+        A small but globally dispersed community still believes a world without money is possible. Among Gen Z, the number is rising. The pathway remains entirely theoretical — no real-world demonstration exists.
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict. The Zeitgeist Movement's ideas may be correct and still fail to change the world. Or they may be quietly succeeding through dispersal into a hundred smaller movements that don't bear its name. Both things can be true.
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Framework by Gharr · Seduction Theory by John Kyalo Mulinge · Built 2026 · Before it was mainstream</span>
+    <span>Signal harvested Feb 26, 2026 · Rivers: TZM Forum · Reddit · Blogs · YouTube · Research</span>
+  </footer>
+
+</div>
+
+<script>
+  // Animate bars on scroll/load
+  function animateBars() {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const width = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = width; }, 400);
+    });
+  }
+  window.addEventListener('load', animateBars);
+</script>
+</body>
+</html>
