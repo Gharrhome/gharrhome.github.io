@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arms Race vs. Abundance — Four Families, Two Futures</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --surface: #111115;
+    --surface2: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --accent-war: #c0392b;
+    --accent-war-dim: rgba(192,57,43,0.15);
+    --accent-peace: #27ae60;
+    --accent-peace-dim: rgba(39,174,96,0.12);
+    --accent-gold: #d4a853;
+    --text: #e8e4dc;
+    --text-dim: #8a8580;
+    --text-muted: #555050;
+    --kenya: #e67e22;
+    --japan: #e74c3c;
+    --brazil: #2ecc71;
+    --sweden: #3498db;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .question-asked {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent-gold);
+    padding: 18px 28px;
+    margin: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+  .question-asked strong {
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  header {
+    padding: 80px 60px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 68px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent-gold);
+  }
+
+  .header-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dim);
+    max-width: 620px;
+    line-height: 1.5;
+  }
+
+  .header-meta {
+    position: absolute;
+    top: 80px;
+    right: 60px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 60px;
+  }
+
+  /* SCENE INTRO */
+  .scene-intro {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .scenario-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .war-label { color: var(--accent-war); }
+  .peace-label { color: var(--accent-peace); }
+
+  .scenario-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .scenario-desc {
+    font-size: 15px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* FAMILY CARDS */
+  .section-header {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 60px 30px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .families-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+  }
+
+  .family-block {
+    display: grid;
+    grid-template-columns: 260px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 60px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .family-block:nth-child(1) { animation-delay: 0.1s; }
+  .family-block:nth-child(2) { animation-delay: 0.2s; }
+  .family-block:nth-child(3) { animation-delay: 0.3s; }
+  .family-block:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .family-identity {
+    padding-right: 40px;
+    border-right: 1px solid var(--border);
+  }
+
+  .family-flag {
+    font-size: 32px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .family-country {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .family-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .family-desc {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .family-voice {
+    padding: 0 36px;
+    border-right: 1px solid var(--border);
+  }
+
+  .voice-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .voice-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .war-dot { background: var(--accent-war); }
+  .peace-dot { background: var(--accent-peace); }
+
+  .voice-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .war-type { color: var(--accent-war); }
+  .peace-type { color: var(--accent-peace); }
+
+  .voice-quote {
+    background: var(--surface2);
+    border-left: 2px solid;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.6;
+    border-radius: 0 4px 4px 0;
+  }
+  .war-quote { border-color: var(--accent-war); background: var(--accent-war-dim); }
+  .peace-quote { border-color: var(--accent-peace); background: var(--accent-peace-dim); }
+
+  .voice-body {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
+
+  .signal-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin: 12px 0 0;
+    text-transform: uppercase;
+  }
+  .war-tag { color: var(--accent-war); background: var(--accent-war-dim); }
+  .peace-tag { color: var(--accent-peace); background: var(--accent-peace-dim); }
+
+  /* SEDUCTION THEORY LAYER */
+  .diagnostic-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 60px;
+    margin: 0;
+  }
+
+  .diagnostic-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .diagnostic-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 24px;
+  }
+
+  .diagnostic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 50px;
+    line-height: 1.2;
+  }
+
+  .diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .diag-card {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--surface2);
+  }
+
+  .diag-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--accent-gold);
+    opacity: 0.4;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .diag-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .diag-body {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
+
+  /* SIGNAL MAP */
+  .signal-map-section {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 60px;
+  }
+
+  .signal-map-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .signal-matrix {
+    display: grid;
+    grid-template-columns: 140px repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .matrix-cell {
+    padding: 18px 20px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  .matrix-cell:last-child { border-right: none; }
+  .matrix-header {
+    background: var(--surface);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .matrix-row-label {
+    background: var(--surface);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    padding: 18px 16px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .war-cell { background: rgba(192,57,43,0.05); color: var(--text); }
+  .peace-cell { background: rgba(39,174,96,0.05); color: var(--text); }
+
+  .country-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .kenya-dot { background: var(--kenya); }
+  .japan-dot { background: var(--japan); }
+  .brazil-dot { background: var(--brazil); }
+  .sweden-dot { background: var(--sweden); }
+
+  /* SILENT VOICES */
+  .silent-section {
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    padding: 60px;
+  }
+  .silent-inner { max-width: 1200px; margin: 0 auto; }
+  .silent-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+  }
+  .silent-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .silent-card {
+    border-left: 2px solid var(--border);
+    padding-left: 18px;
+  }
+  .silent-who {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .silent-why {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px;
+    border-top: 1px solid var(--border);
+  }
+  .disclaimer-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 800px;
+    border-left: 3px solid var(--accent-gold);
+    padding-left: 28px;
+    margin-bottom: 30px;
+  }
+  .framework-credit {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+
+  /* COLOR ACCENTS PER COUNTRY */
+  .kenya-accent .family-country { color: var(--kenya); }
+  .japan-accent .family-country { color: var(--japan); }
+  .brazil-accent .family-country { color: var(--brazil); }
+  .sweden-accent .family-country { color: var(--sweden); }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    header, .scene-intro, .families-grid, .diagnostic-section,
+    .signal-map-section, .silent-section, .disclaimer {
+      padding-left: 24px; padding-right: 24px;
+    }
+    .divider { margin: 0 24px; }
+    .scene-intro { grid-template-columns: 1fr; gap: 30px; }
+    .family-block { grid-template-columns: 1fr; }
+    .family-identity { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 30px; }
+    .family-voice { padding: 30px 0 0; border-right: none; border-bottom: 1px solid var(--border); }
+    .family-voice:last-child { border-bottom: none; }
+    .diagnostic-grid { grid-template-columns: 1fr; }
+    .signal-matrix { grid-template-columns: 100px repeat(2, 1fr); overflow-x: auto; }
+    .silent-grid { grid-template-columns: 1fr 1fr; }
+    .header-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLIGHT RECORDER -->
+<div class="question-asked">
+  <strong>Question asked:</strong>
+  "What does an ordinary family in Kenya, Japan, Brazil, and Sweden think their life looks like if the arms race wins versus if abundance wins — focus on human voices not geopolitics."
+</div>
+
+<header>
+  <div class="header-eyebrow">Gharr × Seduction Theory × 2026 · V2.2</div>
+  <h1>Two Futures.<br>Four Families.<br><em>One Dial.</em></h1>
+  <p class="header-sub">What ordinary people in Nairobi, Osaka, São Paulo, and Gothenburg imagine their lives becoming — depending on which world wins.</p>
+  <div class="header-meta">
+    Built: March 2026<br>
+    Rivers: Blogs · Forums · Social<br>
+    Signal: Wild, not official<br>
+    Framework: Seduction Theory
+  </div>
+</header>
+
+<hr class="divider">
+
+<div class="scene-intro">
+  <div>
+    <div class="scenario-label war-label">Scenario A</div>
+    <div class="scenario-headline" style="color:var(--accent-war)">The Arms Race Wins</div>
+    <div class="scenario-desc">Governments keep choosing guns over schools. Military budgets eat welfare budgets. The world is safer for states, harder for families. Each year the distance grows between what leaders protect and what people need.</div>
+  </div>
+  <div>
+    <div class="scenario-label peace-label">Scenario B</div>
+    <div class="scenario-headline" style="color:var(--accent-peace)">Abundance Wins</div>
+    <div class="scenario-desc">Technology — AI, clean energy, medicine — lands in ordinary hands. The productivity gains are shared. Families feel them in hospitals, schools, food prices, and time. The future arrives not as threat, but as gift.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section-header">
+  <h2>The Four Families — Their Voices From the Jungle Rivers</h2>
+</div>
+
+<div class="families-grid">
+
+  <!-- KENYA -->
+  <div class="family-block kenya-accent">
+    <div class="family-identity">
+      <span class="family-flag">🇰🇪</span>
+      <div class="family-country">Kenya · Nairobi</div>
+      <div class="family-name">The Wanjiru Family</div>
+      <div class="family-desc">Grace Wanjiru, 34, sells produce at Gikomba market. Her husband is a boda-boda driver. Three children in public school. She marched in the Gen-Z cost-of-living protests in 2024 and kept her children home when the police came.</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon war-dot"></span>
+        <span class="voice-type war-type">If the Arms Race Wins</span>
+      </div>
+      <div class="voice-quote war-quote">"They gave the military Sh13 billion more. They took it from my children's schools. What war are we fighting? The war is here — in the price of maize flour."</div>
+      <div class="voice-body">Grace has watched her government's budget shift: military up 39% in 2025, education cut. She knows the vocabulary — IMF austerity, KDF deployments to Somalia — but what she feels is simpler. Her daughter's school has no textbooks. The clinic near Gikomba ran out of malaria medication. The fear is not of foreign armies. The fear is that austerity plus militarism means ordinary families pay twice: once in taxes, once in missing services. The Gen-Z protesters chanting "Ruto Must Go" at Nyayo stadium said it louder than any newspaper.</div>
+      <div class="signal-tag war-tag">Signal: Business Daily Africa · HRW 2026 · Standard Media Kenya</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon peace-dot"></span>
+        <span class="voice-type peace-type">If Abundance Wins</span>
+      </div>
+      <div class="voice-quote peace-quote">"I want the solar borehole they built in Wajir for every village. I want my children's clinic stocked. Not fighter jets. Water."</div>
+      <div class="voice-body">The signal from Kenya's wild rivers is precise about what abundance looks like to ordinary families: a working water pump (the Griftu solar borehole now serves 9,200 people), a school with a roof that holds, a hospital that has staff and medicine. Grace's abundance scenario is not abstract technology — it is the feeling of not carrying jerrycans on her back in 40-degree heat. AI and fintech are arriving in Kenya's cities; she has M-Pesa already. What she wants is for those gains to reach her clinic, her road, her children's future.</div>
+      <div class="signal-tag peace-tag">Signal: UNICEF Kenya · Compassion International · Nation Africa</div>
+    </div>
+  </div>
+
+  <!-- JAPAN -->
+  <div class="family-block japan-accent">
+    <div class="family-identity">
+      <span class="family-flag">🇯🇵</span>
+      <div class="family-country">Japan · Osaka</div>
+      <div class="family-name">The Tanaka Family</div>
+      <div class="family-desc">Kenji Tanaka, 41, works at a mid-sized electronics firm. His wife Yuki teaches part-time. Two children. Kenji's parents are elderly and the family quietly subsidises their care costs. He remembers being told Japan had no army. Now he hears about Tomahawk missiles and finds it confusing.</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon war-dot"></span>
+        <span class="voice-type war-type">If the Arms Race Wins</span>
+      </div>
+      <div class="voice-quote war-quote">"Defense spending grows 9.4% in a year when the economy grew 0.2%. Someone will pay for this. I think it will be me — through my pension, through my parents' care."</div>
+      <div class="voice-body">The signal from Japanese civil society forums and peace rallies is a distinct, specific anxiety: Japan's rearmament is outrunning its economy. Defense has climbed 16% in one fiscal year against 0.2% economic growth. Japanese scholars quoted in regional press warn this "will ultimately be borne by ordinary people." The older fear in the Tanaka family runs deeper — grandparents who lived through 1945 do not read rearmament as security. They read it as a direction. Protests outside the Prime Minister's residence in November 2025 carried signs about this exact tension. Kenji supports defense in principle. He worries about the bill.</div>
+      <div class="signal-tag war-tag">Signal: Munich Security Report 2025 · ICG Japan Report · East Asia Forum</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon peace-dot"></span>
+        <span class="voice-type peace-type">If Abundance Wins</span>
+      </div>
+      <div class="voice-quote peace-quote">"Japan has incredible technology. I want it to solve elder care, not build missiles. My mother needs a nurse. The country needs more nurses."</div>
+      <div class="voice-body">Japan's aging population means that abundance, for the Tanaka family, looks like AI-assisted elder care, robotic support for his mother, and a pension that survives. The country has the engineering capacity. The question families ask in community forums is whether that capacity will go toward weapons or toward the actual catastrophe already happening: a shrinking, aging population with rising care costs and declining real wages (six straight months of wage decline in 2025, even with near-zero unemployment). Yuki wants her part-time teaching job to be full-time. Abundance is stability, not missiles.</div>
+      <div class="signal-tag peace-tag">Signal: WEF Future of Jobs 2025 · Japan Times community signals</div>
+    </div>
+  </div>
+
+  <!-- BRAZIL -->
+  <div class="family-block brazil-accent">
+    <div class="family-identity">
+      <span class="family-flag">🇧🇷</span>
+      <div class="family-country">Brazil · São Paulo</div>
+      <div class="family-name">The Santos Family</div>
+      <div class="family-desc">Adriana Santos, 29, works two jobs — a supermarket cashier and weekend cleaning work. Her partner does gig delivery. They have a two-year-old daughter. Adriana is terrified of AI taking her cashier job. She is also terrified of never being able to afford a place to live.</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon war-dot"></span>
+        <span class="voice-type war-type">If the Arms Race Wins</span>
+      </div>
+      <div class="voice-quote war-quote">"The cost of living keeps going higher. I have concerns about not being able to pay my bills and not giving my daughter the education and life she deserves."</div>
+      <div class="voice-body">This is a real voice — a Brazilian woman quoted directly in a Deloitte global survey on cost of living anxiety, 2023, still more true in 2026. For Adriana, the arms race is not abstract: it means the global economy stays unstable, commodity prices stay volatile, and her precarious work stays precarious. Brazil has record wages on paper in 2025, but for the gig economy family, wage gains don't reach her. If the world chooses weapons over stability, Adriana's employer will automate her cashier role faster — AI-driven job cuts are already accelerating globally. Her fear is a double squeeze: conflict abroad makes food prices spike; AI at home takes her job before abundance ever arrives.</div>
+      <div class="signal-tag war-tag">Signal: Deloitte Gen Z Survey · WEF AI Precariat Report · BNamericas 2026</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon peace-dot"></span>
+        <span class="voice-type peace-type">If Abundance Wins</span>
+      </div>
+      <div class="voice-quote peace-quote">"If AI takes my job but gives my daughter free medicine, free school, and clean water — maybe that's a trade I can live with. But only if the gains actually come to us."</div>
+      <div class="voice-body">Brazil is entering the global AI map in 2026 — the infrastructure was built in 2025. For Adriana, abundance has a condition attached: it must reach people like her. The WEF Jobs report identifies Brazil as high demand for new skills, low supply — meaning the country has the hunger, not yet the pipeline. Her abundance scenario requires that reskilling programs are real, not brochures; that the new jobs pay enough to rent an apartment; that her daughter's school has teachers. The Brazilian voices in the jungle are cautiously hopeful about technology, deeply suspicious about who it benefits. Abundance that only reaches tech workers is not abundance.</div>
+      <div class="signal-tag peace-tag">Signal: IMF Skills Report · WEF Future of Jobs · BNamericas AI Brazil 2026</div>
+    </div>
+  </div>
+
+  <!-- SWEDEN -->
+  <div class="family-block sweden-accent">
+    <div class="family-identity">
+      <span class="family-flag">🇸🇪</span>
+      <div class="family-country">Sweden · Gothenburg</div>
+      <div class="family-name">The Lindqvist Family</div>
+      <div class="family-desc">Erik Lindqvist, 46, is a civil engineer. His partner Sofia is a social worker. They supported neutrality for most of their lives. Russia's invasion of Ukraine changed them. But now the NATO spending targets are climbing toward 3.5% of GDP and they are doing math they don't like.</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon war-dot"></span>
+        <span class="voice-type war-type">If the Arms Race Wins</span>
+      </div>
+      <div class="voice-quote war-quote">"I understand the threat is real. But I became a social worker to build something. If we borrow 300 billion kronor for weapons by 2034, what happens to the welfare state my parents built?"</div>
+      <div class="voice-body">Sofia's voice is heard clearly in Sweden's civil society debate. The Swedish government's own plan: borrow SEK 300 billion to rearm by 2034, transitioning from loans to budget balance by 2035 — on the promise that welfare is protected. But public anxiety is visible. One civil servant (documented in Jacobin's August 2025 Sweden report) describes "the growing fear of having the wrong ideas" — the social atmosphere around NATO criticism now feels uncomfortable in a country that once funded peace movements. The Lindqvist family supports NATO. They are also the first generation who may see Sweden's famed welfare state permanently reshaped by military debt. That's what "arms race wins" feels like in Gothenburg.</div>
+      <div class="signal-tag war-tag">Signal: Jacobin Sweden 2025 · Swedish Government Spring Budget · Foreign Policy NATO analysis</div>
+    </div>
+
+    <div class="family-voice">
+      <div class="voice-header">
+        <span class="voice-icon peace-dot"></span>
+        <span class="voice-type peace-type">If Abundance Wins</span>
+      </div>
+      <div class="voice-quote peace-quote">"Sweden is small. We are good at solving problems together. If the world stabilises, we could be very good at this — green energy, AI, caring for our elderly well. That is who we want to be."</div>
+      <div class="voice-body">Erik's version of abundance is specifically Nordic: a society where technology extends the welfare state rather than replacing it, where Sweden's engineering strength goes into green transition and elder care rather than missile procurement. Sweden already exports renewable energy solutions and has some of Europe's best elder care infrastructure. The abundance path for the Lindqvist family is a return to what Sweden was building before 2022 — a country investing in people, exporting peace, demonstrating that social democracy and technological advance can arrive together. The loss of neutrality is recent enough that many Swedes still mourn it. Abundance would let them grieve it less.</div>
+      <div class="signal-tag peace-tag">Signal: Arctic Institute Sweden · Oxford Political Review NATO welfare analysis</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SEDUCTION THEORY DIAGNOSTIC -->
+<div class="diagnostic-section">
+  <div class="diagnostic-inner">
+    <div class="diagnostic-eyebrow">⚙ Seduction Theory Diagnostic Layer</div>
+    <div class="diagnostic-title">What the Stakeholder Map Actually Reveals</div>
+    <div class="diagnostic-grid">
+
+      <div class="diag-card">
+        <span class="diag-num">01</span>
+        <div class="diag-title">The Four Families Want the Same Thing</div>
+        <div class="diag-body">Grace in Nairobi, Kenji in Osaka, Adriana in São Paulo, Sofia in Gothenburg — their abundance scenarios converge. They want good schools, working clinics, stable food prices, and time with their children. No family's abundance vision includes weapons. This is the map's most important feature: the floor is shared even when the ceiling is different.</div>
+      </div>
+
+      <div class="diag-card">
+        <span class="diag-num">02</span>
+        <div class="diag-title">The Fear Is Always About the Same Substitution</div>
+        <div class="diag-body">In Kenya, military gets +39%, education gets cut. In Japan, defense grows 16x faster than the economy. In Sweden, SEK 300 billion in military debt may reshape welfare by 2035. In Brazil, AI and instability compete for the same fragile families. The pattern is universal: when war wins the budget, families lose the services. The families know this. They do not need economists to explain it.</div>
+      </div>
+
+      <div class="diag-card">
+        <span class="diag-num">03</span>
+        <div class="diag-title">The Silent Voice: Children</div>
+        <div class="diag-body">Every family in this map is really speaking on behalf of their children. Grace's daughter can't get textbooks. Kenji's children will inherit military debt. Adriana's two-year-old will grow up in whatever world the adults choose. Erik's children will either inherit a welfare state or a defense budget. The children are never quoted. They are always the subject.</div>
+      </div>
+
+      <div class="diag-card">
+        <span class="diag-num">04</span>
+        <div class="diag-title">The Contradiction the Map Shows</div>
+        <div class="diag-body">Every government represented here officially claims the arms race and abundance are compatible — security enables prosperity. Every ordinary family in the map privately doubts this. They see the substitution directly. This is the gap between what leaders say and what families feel. The map exists to make that gap visible and measurable.</div>
+      </div>
+
+      <div class="diag-card">
+        <span class="diag-num">05</span>
+        <div class="diag-title">The Emerging Signal: Conditional Hope</div>
+        <div class="diag-body">Across all four countries, the abundance scenario is held with a condition. Adriana says it plainly: "only if the gains actually come to us." The distrust is not of technology. It is of distribution. Families have watched productivity gains bypass them before. AI abundance without redistribution is not abundance — it is a new flavor of the same exclusion. This signal is growing louder across all four rivers.</div>
+      </div>
+
+      <div class="diag-card">
+        <span class="diag-num">06</span>
+        <div class="diag-title">The Trend Sentinel Finding</div>
+        <div class="diag-body">Before it becomes a headline: a growing global cohort of ordinary families is losing faith that their government's security choices protect them personally. In Kenya, Gen-Z protesters make this visceral. In Japan, peace rallies before the PM's residence. In Sweden, civil servants afraid to post anti-NATO opinions. The political legitimacy of the arms race depends on ordinary families believing it protects them. That belief is fraying.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SIGNAL MATRIX -->
+<div class="signal-map-section">
+  <div class="signal-map-title">Living Signal Matrix — What Each Family Fears / Hopes Most</div>
+  <div class="signal-matrix">
+
+    <!-- Headers -->
+    <div class="matrix-header"></div>
+    <div class="matrix-header"><span class="country-dot kenya-dot"></span>Kenya</div>
+    <div class="matrix-header"><span class="country-dot japan-dot"></span>Japan</div>
+    <div class="matrix-header"><span class="country-dot brazil-dot"></span>Brazil</div>
+    <div class="matrix-header"><span class="country-dot sweden-dot"></span>Sweden</div>
+
+    <!-- War row -->
+    <div class="matrix-row-label">If Arms Race<br>Wins</div>
+    <div class="matrix-cell war-cell">Schools defunded to pay military. Police kill protesters asking about it. Clinic has no medicine. Family can't see a doctor.</div>
+    <div class="matrix-cell war-cell">Military debt restructures pension system. Elderly parents' care costs surge. Article 9 gone; grandparents' trauma returns.</div>
+    <div class="matrix-cell war-cell">Global instability spikes food prices. AI automation accelerates job cuts. No safety net catches families in the gap.</div>
+    <div class="matrix-cell war-cell">SEK 300bn military debt reshapes welfare by 2035. Social workers lose budget. The state that raised them doesn't recognise them.</div>
+
+    <!-- Peace row -->
+    <div class="matrix-row-label">If Abundance<br>Wins</div>
+    <div class="matrix-cell peace-cell">Solar boreholes, stocked clinics, textbooks, stable food prices. Technology lands in villages not just Nairobi.</div>
+    <div class="matrix-cell peace-cell">AI supports elder care. Real wages rise. Pension survives. Japan's engineering goes toward the actual crisis: aging.</div>
+    <div class="matrix-cell peace-cell">Reskilling programs reach gig workers. New jobs pay rent. Daughter grows up with healthcare and a school with teachers.</div>
+    <div class="matrix-cell peace-cell">Green energy transition. Extended welfare state. Sweden exports peace solutions, not procurement. Neutrality's spirit lives on in policy.</div>
+
+  </div>
+</div>
+
+<!-- SILENT VOICES -->
+<div class="silent-section">
+  <div class="silent-inner">
+    <div class="silent-title">Who Is Silent — And Why Silence Is Also Signal</div>
+    <div class="silent-grid">
+      <div class="silent-card">
+        <div class="silent-who">Kenya — The Elderly</div>
+        <div class="silent-why">Older Kenyans who lived through structural adjustment in the 1980s are not speaking loudly. They have seen this cycle before. Their silence is not acceptance — it is exhaustion and recognition.</div>
+      </div>
+      <div class="silent-card">
+        <div class="silent-who">Japan — Young Men</div>
+        <div class="silent-why">Young Japanese men are largely absent from the rearmament debate in public forums. Cultural norms make direct anti-military expression uncomfortable. Their silence may be strategic non-engagement, not support.</div>
+      </div>
+      <div class="silent-card">
+        <div class="silent-who">Brazil — Favela Families</div>
+        <div class="silent-why">The most economically precarious Brazilian families are underrepresented in AI and futures discussions. Their absence from the abundance conversation is itself a warning: the gains may not reach them at all.</div>
+      </div>
+      <div class="silent-card">
+        <div class="silent-who">Sweden — NATO Critics in Public Sector</div>
+        <div class="silent-why">Civil servants with doubts about NATO are self-censoring. One documented case (Jacobin, 2025): fear of being labelled "Putin apologist" silences anti-militarist voices in a country that once funded peace movements.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER + CREDIT -->
+<div class="disclaimer">
+  <div class="disclaimer-text">
+    "The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict."
+  </div>
+  <div class="framework-credit">
+    Framework by Gharr · Seduction Theory by John Kyalo Mulinge · Built March 2026 · V2.2 · Before it was mainstream<br>
+    Rivers consulted: Business Daily Africa · HRW World Report 2026 · UNICEF Kenya · Nation Africa · Munich Security Report 2025 ·<br>
+    International Crisis Group Japan · East Asia Forum · Jacobin Sweden · Foreign Policy · WEF Future of Jobs 2025 ·<br>
+    Deloitte Gen Z Survey · BNamericas Brazil · Oxford Political Review · The Standard Kenya · Al Jazeera<br><br>
+    Signal is wild, not official. Synthesised for human truth, not institutional truth.
+  </div>
+</div>
+
+</body>
+</html>

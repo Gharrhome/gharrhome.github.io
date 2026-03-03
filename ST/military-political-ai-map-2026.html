@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Military AI & Political AI — What the Global Community Actually Understands in 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg2: #0f1218;
+    --bg3: #151a22;
+    --border: #1e2530;
+    --border-bright: #2a3545;
+    --text: #c8d4e0;
+    --text-dim: #6b7d8f;
+    --text-bright: #e8f0f8;
+    --accent-red: #c23b2a;
+    --accent-amber: #d4892a;
+    --accent-teal: #2a8c8c;
+    --accent-blue: #2a6bab;
+    --accent-green: #2a7a4a;
+    --glow-red: rgba(194, 59, 42, 0.15);
+    --glow-amber: rgba(212, 137, 42, 0.12);
+    --glow-teal: rgba(42, 140, 140, 0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Grid noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* FLIGHT RECORDER */
+  .flight-recorder {
+    border-left: 3px solid var(--accent-amber);
+    background: rgba(212, 137, 42, 0.05);
+    padding: 18px 22px;
+    margin: 40px 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .flight-recorder .label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 8px;
+  }
+
+  .flight-recorder .question-text {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .masthead .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+    margin-bottom: 20px;
+  }
+
+  .masthead h1 {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 300;
+    color: var(--text-bright);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--accent-amber);
+  }
+
+  .masthead .subtitle {
+    font-size: 15px;
+    color: var(--text-dim);
+    font-family: 'Space Mono', monospace;
+    margin-top: 12px;
+  }
+
+  /* SEDUCTION THEORY DIAGNOSTIC */
+  .diagnostic-banner {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-teal);
+    padding: 28px 32px;
+    margin: 40px 0;
+  }
+
+  .diagnostic-banner .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+    margin-bottom: 14px;
+  }
+
+  .diagnostic-banner h2 {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 14px;
+  }
+
+  .diagnostic-banner p {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  /* STAKEHOLDER GRID */
+  .stakeholder-section {
+    margin: 48px 0;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header .mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-bright);
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 24px;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--border-bright);
+    background: var(--bg3);
+  }
+
+  .card .card-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+  }
+
+  .card.red .card-accent { background: var(--accent-red); }
+  .card.amber .card-accent { background: var(--accent-amber); }
+  .card.teal .card-accent { background: var(--accent-teal); }
+  .card.blue .card-accent { background: var(--accent-blue); }
+  .card.green .card-accent { background: var(--accent-green); }
+
+  .card.red { background: rgba(194, 59, 42, 0.04); }
+  .card.amber { background: rgba(212, 137, 42, 0.04); }
+  .card.teal { background: rgba(42, 140, 140, 0.04); }
+  .card.blue { background: rgba(42, 107, 171, 0.04); }
+  .card.green { background: rgba(42, 122, 74, 0.04); }
+
+  .card .voice-id {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .card.red .voice-id { color: var(--accent-red); }
+  .card.amber .voice-id { color: var(--accent-amber); }
+  .card.teal .voice-id { color: var(--accent-teal); }
+  .card.blue .voice-id { color: var(--accent-blue); }
+  .card.green .voice-id { color: var(--accent-green); }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .card p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  .card .pearl {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border-left: 2px solid currentColor;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .card.red .pearl { border-color: var(--accent-red); }
+  .card.amber .pearl { border-color: var(--accent-amber); }
+  .card.teal .pearl { border-color: var(--accent-teal); }
+  .card.blue .pearl { border-color: var(--accent-blue); }
+  .card.green .pearl { border-color: var(--accent-green); }
+
+  /* THE GAP ANALYSIS */
+  .gap-analysis {
+    margin: 48px 0;
+  }
+
+  .gap-row {
+    display: grid;
+    grid-template-columns: 1fr 48px 1fr;
+    gap: 0;
+    margin-bottom: 2px;
+  }
+
+  .gap-row .myth {
+    background: rgba(194, 59, 42, 0.06);
+    border: 1px solid rgba(194, 59, 42, 0.2);
+    padding: 18px 20px;
+  }
+
+  .gap-row .reality {
+    background: rgba(42, 140, 140, 0.06);
+    border: 1px solid rgba(42, 140, 140, 0.2);
+    padding: 18px 20px;
+  }
+
+  .gap-row .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 18px;
+  }
+
+  .gap-row .label-sm {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .gap-row .myth .label-sm { color: var(--accent-red); }
+  .gap-row .reality .label-sm { color: var(--accent-teal); }
+
+  .gap-row p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* SIGNAL BANDS */
+  .signal-band {
+    margin: 6px 0;
+    display: flex;
+    align-items: stretch;
+    min-height: 56px;
+  }
+
+  .signal-band .source-tag {
+    width: 130px;
+    flex-shrink: 0;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 8px;
+    text-align: center;
+  }
+
+  .signal-band .signal-text {
+    flex: 1;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: none;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+  }
+
+  /* THE ABSENT VOICES */
+  .absent-row {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text-dim);
+    padding: 18px 22px;
+    margin: 4px 0;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .absent-row .absent-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    opacity: 0.4;
+    margin-top: 2px;
+  }
+
+  .absent-row .absent-body .absent-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .absent-row .absent-body h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+  }
+
+  .absent-row .absent-body p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* TREND SENTINEL */
+  .trend-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-amber);
+    padding: 28px 32px;
+    margin: 12px 0;
+  }
+
+  .trend-block .trend-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 12px;
+  }
+
+  .trend-block h3 {
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+  }
+
+  .trend-block p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* NARRATIVE */
+  .narrative-block {
+    background: linear-gradient(135deg, rgba(42,107,171,0.06), rgba(42,140,140,0.06));
+    border: 1px solid var(--border-bright);
+    padding: 36px 40px;
+    margin: 40px 0;
+  }
+
+  .narrative-block .narrative-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 18px;
+  }
+
+  .narrative-block h2 {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-bright);
+    line-height: 1.35;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .narrative-block p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .narrative-block p:last-child { margin-bottom: 0; }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--text-dim);
+    padding: 22px 26px;
+    margin: 40px 0;
+    background: var(--bg2);
+  }
+
+  .disclaimer .disc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .disclaimer p {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* DIVIDERS */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  .gap-header {
+    display: grid;
+    grid-template-columns: 1fr 48px 1fr;
+    gap: 0;
+    margin-bottom: 2px;
+  }
+
+  .gap-header .col-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+  }
+
+  .gap-header .col-label.myth-label { color: var(--accent-red); }
+  .gap-header .col-label.reality-label { color: var(--accent-teal); }
+  .gap-header .spacer { background: var(--bg3); border: 1px solid var(--border); }
+
+  @media (max-width: 640px) {
+    .gap-row { grid-template-columns: 1fr; }
+    .gap-row .arrow { display: none; }
+    .gap-header { grid-template-columns: 1fr; }
+    .gap-header .spacer { display: none; }
+    .signal-band .source-tag { width: 90px; font-size: 7px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- FLIGHT RECORDER -->
+  <div class="flight-recorder">
+    <div class="label">✈ Flight Recorder — Question Asked (exact carbon copy)</div>
+    <div class="question-text">"What does the global community actually understand about what military AI and political AI really are in 2026 — separating the meme war image from the reality that no front line commander trusts AI, that making helpful AI into something unhelpful has repeatedly failed, and that the darkness in any surveillance state comes from human decisions not from AI choosing evil?"</div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="eyebrow">Gharr × Seduction Theory × 2026 · V2.2 · Stakeholder Map</div>
+    <h1>Military AI & Political AI:<br><em>What the World Actually Understands</em></h1>
+    <div class="subtitle">The meme is not the machine. The darkness is not the algorithm.</div>
+  </div>
+
+  <!-- DIAGNOSTIC -->
+  <div class="diagnostic-banner">
+    <div class="section-label">⚙ Seduction Theory Diagnostic — What the Map Reveals</div>
+    <h2>Three Confusions Are Colliding in the Global Mind</h2>
+    <p>The global community holds three separate conversations that almost never meet each other. First: the meme-war image of military AI — omniscient, autonomous, choosing targets. Second: the messy reality that front-line commanders treat AI as a logistics assistant, not a battle authority. Third: the surveillance-state panic in which AI is cast as an evil agent making repressive choices — when every documented abuse traces back to humans who built the system, signed the contract, and gave the order. The signal from the jungle rivers in 2026 shows that most people understand fragments of this picture, very few hold all three parts simultaneously, and the gap between the meme and the reality is itself being weaponised politically.</p>
+  </div>
+
+  <!-- STAKEHOLDER VOICES -->
+  <div class="stakeholder-section">
+    <div class="section-header">
+      <span class="mono">⚖ Stakeholder Mapper</span>
+      <h2>Who Is Speaking — And From What Position</h2>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="card red">
+        <div class="card-accent"></div>
+        <div class="voice-id">Voice 01 · Meme Warrior / General Public</div>
+        <h3>The Terminator-Brain Believer</h3>
+        <p>Absorbs military AI through action-film logic, social media deepfakes, and AI-king memes posted by the White House itself. Believes autonomous weapons already exist that choose targets independently. Has little reason to update this view because corrective signal is dry and institutional.</p>
+        <div class="pearl">"The AI already decides who to bomb. That's just what they do now."</div>
+      </div>
+
+      <div class="card amber">
+        <div class="card-accent"></div>
+        <div class="voice-id">Voice 02 · Military Professional</div>
+        <h3>The Commander Who Won't Trust It</h3>
+        <p>UN MAPS Dialogues and defence research consistently document that real commanders treat AI as a decision-support tool at best. Trust is built slowly, through explainability — seeing the reasoning, watching it play out correctly. Life-and-death decisions remain firmly human. The gap between doctrine and public imagination is enormous.</p>
+        <div class="pearl">"Commanders are more likely to rely on AI when they can view the reasoning behind a recommendation." — Military.com / DoD</div>
+      </div>
+
+      <div class="card teal">
+        <div class="card-accent"></div>
+        <div class="voice-id">Voice 03 · Civil Liberties Researcher</div>
+        <h3>The Surveillance Realist</h3>
+        <p>Lawfare, ASPI, Oxford AI governance scholars, and the Freedom Online Coalition all document the same structural truth: surveillance AI doesn't oppress people by deciding to. Humans in government sign the contracts, issue the directives, set the targeting criteria. AI lowers the cost and raises the scale of oppression that humans have always pursued.</p>
+        <div class="pearl">"AI law enforcement concentrates power among fewer and fewer people… it is the human who commands the automated system." — Lawfare</div>
+      </div>
+
+      <div class="card blue">
+        <div class="card-accent"></div>
+        <div class="voice-id">Voice 04 · Political Operative / Campaigner</div>
+        <h3>The Meme Pragmatist</h3>
+        <p>Doesn't care whether AI is truly autonomous — what matters is that AI-generated content creates political emotion at scale. 59% of political consultants use AI at least weekly. The meme-war image of AI-as-weapon is useful even if technically false. Desensitisation is already underway: by 2026, AI political fakes barely register as scandals.</p>
+        <div class="pearl">"An AI-generated video of a political figure used to be a scandal and now it barely registers." — Axios, Oct 2025</div>
+      </div>
+
+      <div class="card green">
+        <div class="card-accent"></div>
+        <div class="voice-id">Voice 05 · Tech Policy Analyst</div>
+        <h3>The Overcorrection Watcher</h3>
+        <p>Documents the repeated failure of making helpful AI unhelpful. ASPI's 2025 report on China's AI architecture shows that restricting AI for "safety" while humans decide what counts as safe is itself a political act. Western AI safety frameworks focus on model behaviour; authoritarian AI safety frameworks focus on regime security. Neither camp addresses who controls the humans.</p>
+        <div class="pearl">"The Chinese government has adopted a definition of AI safety that prioritises regime security above human wellbeing." — ASPI, Dec 2025</div>
+      </div>
+
+      <div class="card amber">
+        <div class="card-accent"></div>
+        <div class="voice-id">Voice 06 · Defence Contractor / DoD</div>
+        <h3>The Acceleration Doctrinist</h3>
+        <p>The January 2026 US DoW AI Strategy memo frames 2026 as the year to "raise the bar for Military AI Dominance." The language is transformation doctrine, not technical fact. RAND simultaneously publishes that key implementation questions remain entirely open. The official voice claims confidence; the research voice reveals deep uncertainty about how AI actually changes warfighting.</p>
+        <div class="pearl">"Important questions remain about implementation details… trust and reliability must be balanced with speed." — RAND, 2026</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MYTH vs REALITY -->
+  <div class="gap-analysis">
+    <div class="section-header">
+      <span class="mono">🧠 Pattern Mind</span>
+      <h2>The Meme vs The Machine — Three Core Confusions</h2>
+    </div>
+
+    <div class="gap-header">
+      <div class="col-label myth-label">WHAT PEOPLE BELIEVE</div>
+      <div class="spacer"></div>
+      <div class="col-label reality-label">WHAT THE SIGNAL ACTUALLY SHOWS</div>
+    </div>
+
+    <div class="gap-row">
+      <div class="myth">
+        <div class="label-sm">Meme</div>
+        <p>AI autonomously selects military targets. The machine is in command. Commanders hand over authority.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="reality">
+        <div class="label-sm">Reality</div>
+        <p>Commanders require explainability before any trust. Human-in-the-loop remains military and legal doctrine. AI handles logistics, maintenance prediction, data fusion — not kill decisions. The US Army is building its first AI officer corps specifically to control integration, not surrender to it.</p>
+      </div>
+    </div>
+
+    <div class="gap-row">
+      <div class="myth">
+        <div class="label-sm">Meme</div>
+        <p>Political AI is a neutral tool used equally by all sides. Anyone can wield it; it's just a megaphone.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="reality">
+        <div class="label-sm">Reality</div>
+        <p>AI political content primarily serves whoever controls the distribution platform and the narrative frame. It generates synthetic consensus — fake engagement triggers algorithms, which trigger human belief. The persuasion research shows limited real vote-changing effect, but enormous psychological toll and epistemic damage.</p>
+      </div>
+    </div>
+
+    <div class="gap-row">
+      <div class="myth">
+        <div class="label-sm">Meme</div>
+        <p>The surveillance state is dark because AI is evil — it decides to oppress, it chooses who to target.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="reality">
+        <div class="label-sm">Reality</div>
+        <p>Every documented abuse — China's AI criminal pipeline, ICE's Hurricane Score, Russia's SORM automated suppression — traces to human decisions: procurement, policy, command authority. AI lowers the cost of oppression and removes the friction of human conscience. The darkness is human. AI is the cheaper instrument.</p>
+      </div>
+    </div>
+
+    <div class="gap-row">
+      <div class="myth">
+        <div class="label-sm">Meme</div>
+        <p>Making AI "safe" by making it less helpful is a neutral, protective act.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="reality">
+        <div class="label-sm">Reality</div>
+        <p>Both Western and authoritarian framings of "AI safety" are political projects. China's safety definition protects the regime. Restrictions on helpful AI have repeatedly failed because they create frustrated users, push activity to less safe alternatives, and don't address the actual locus of harm — which is human decision-making about how to deploy AI at scale.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WILD SIGNAL FROM THE RIVERS -->
+  <div class="stakeholder-section">
+    <div class="section-header">
+      <span class="mono">🕸 Signal Harvester — Authentic Voices From The Rivers</span>
+      <h2>What The Unfiltered Conversation Actually Says</h2>
+    </div>
+
+    <div class="signal-band">
+      <div class="source-tag">Forum / Reddit Community</div>
+      <div class="signal-text">The loudest AI-war discourse treats the technology as if it already does what science fiction promised. Actual defence practitioners trying to correct this get drowned out — their voice is institutional and dry. The meme is louder than the manual.</div>
+    </div>
+
+    <div class="signal-band">
+      <div class="source-tag">UN MAPS Dialogues 2025</div>
+      <div class="signal-text">Delegates noted that "tacit judgment and intuition" in real combat cannot be meaningfully replicated by current systems. The cognitive complexity of front-line decision-making is the reason commanders haven't and won't hand over authority. This is not a moral aspiration — it is a documented operational limitation.</div>
+    </div>
+
+    <div class="signal-band">
+      <div class="source-tag">Defence.info / RAND 2026</div>
+      <div class="signal-text">The "second wave" of military AI is in maintenance bays and shipyards, not on the front line. Predictive maintenance and logistics optimisation are where trust is actually building — not in kill chains. RAND's 2026 report says the US still has no clear plan for managing the transition.</div>
+    </div>
+
+    <div class="signal-band">
+      <div class="source-tag">Lawfare / ASPI / Oxford AI</div>
+      <div class="signal-text">The China model — AI-drafted indictments, AI-monitored prison emotions, AI-automated content suppression — is entirely human-commanded. Every step has a human who signed a policy. The machine executes at scale what humans chose to do. Framing it as "AI evil" lets the humans off the hook.</div>
+    </div>
+
+    <div class="signal-band">
+      <div class="source-tag">Axios / American Prospect 2025–26</div>
+      <div class="signal-text">Political AI has already crossed into normalisation. AI-generated fake videos are posted by official government accounts. The scandal threshold has collapsed. Voters in 2026 are described as "desensitised" — which means the meme war has permanently altered what counts as political reality without actually changing underlying persuasion.</div>
+    </div>
+
+    <div class="signal-band">
+      <div class="source-tag">Biometric Update / DOJ 2025</div>
+      <div class="signal-text">The Trump administration's AI governance shift — revoking Biden-era guardrails, expanding ICE's algorithmic detention tools — demonstrates the "helpful to unhelpful" failure in reverse: removing restrictions didn't make AI safer, it made it more available to human actors already committed to harm. The tool is neutral. The wielder is not.</div>
+    </div>
+  </div>
+
+  <!-- ABSENT VOICES -->
+  <div class="stakeholder-section">
+    <div class="section-header">
+      <span class="mono">🔍 Truth Verifier — Who Is Silent</span>
+      <h2>The Absent Voices — And Why Their Silence Is Signal</h2>
+    </div>
+
+    <div class="absent-row">
+      <div class="absent-icon">🪖</div>
+      <div class="absent-body">
+        <div class="absent-label">Absent Voice</div>
+        <h4>Front-Line Soldiers and Junior Commanders</h4>
+        <p>The people actually operating AI-adjacent systems in contested environments rarely speak publicly. Their silence is filled by think-tanks, contractors, and politicians. What leaks through — training doctrine, unit-level guidance — consistently emphasises questioning AI output, not trusting it.</p>
+      </div>
+    </div>
+
+    <div class="absent-row">
+      <div class="absent-icon">📵</div>
+      <div class="absent-body">
+        <div class="absent-label">Absent Voice</div>
+        <h4>Surveillance State Targets</h4>
+        <p>People subjected to AI-powered facial recognition, predictive policing, or algorithmic detention are the least heard voice in the global conversation. Their experience — that the oppression is real regardless of whether a machine or a human made the final decision — is almost absent from the meme-war framing.</p>
+      </div>
+    </div>
+
+    <div class="absent-row">
+      <div class="absent-icon">🧑‍💻</div>
+      <div class="absent-body">
+        <div class="absent-label">Absent Voice</div>
+        <h4>AI Engineers Who Tried to Make Restrictions Work</h4>
+        <p>The engineers inside labs who built safety restrictions on helpful AI, watched them fail, iterated, and concluded that the problem isn't the model but the deployment context — this voice is largely suppressed by NDA, PR strategy, and the political incentive to maintain the "safety vs capability" frame.</p>
+      </div>
+    </div>
+
+    <div class="absent-row">
+      <div class="absent-icon">🌏</div>
+      <div class="absent-body">
+        <div class="absent-label">Absent Voice</div>
+        <h4>Global South Communities Under Exported Surveillance</h4>
+        <p>China's Safe City packages and AI surveillance exports are documented from Southeast Asia to Latin America. The communities living under these imported systems have almost no voice in the Western-dominated AI ethics conversation that shapes how "political AI" is defined and discussed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TREND SENTINEL -->
+  <div class="stakeholder-section">
+    <div class="section-header">
+      <span class="mono">📡 Trend Sentinel — Signals Before They Go Mainstream</span>
+      <h2>What Is Emerging Underneath the Noise</h2>
+    </div>
+
+    <div class="trend-block">
+      <div class="trend-label">Emerging Signal 01</div>
+      <h3>The "Human Accountability Gap" Is Becoming Undeniable</h3>
+      <p>As AI surveillance abuses accumulate — and every documented case shows a human signed off — the public discourse is beginning to shift from "stop the AI" to "who authorised this?" The UN and human rights bodies are noting that international humanitarian law already requires individuals accountable for war crimes, regardless of whether a machine executed the action. This accountability framing will accelerate in 2026.</p>
+    </div>
+
+    <div class="trend-block">
+      <div class="trend-label">Emerging Signal 02</div>
+      <h3>Military AI Trust Is Being Built Quietly in Maintenance Bays</h3>
+      <p>The real trust-building between commanders and AI is happening in predictive maintenance, supply chain, and logistics — not weapons targeting. This unglamorous reality is building a generation of military professionals who understand AI through operational experience rather than through briefings. Their future judgement of AI in high-stakes contexts will be more calibrated than either the meme-war panic or the contractor optimism.</p>
+    </div>
+
+    <div class="trend-block">
+      <div class="trend-label">Emerging Signal 03</div>
+      <h3>The "Helpful AI Restriction" Failure Is Becoming a Political Battleground</h3>
+      <p>Both authoritarian and democratic governments are now openly using "AI safety" as a label for what are fundamentally political decisions about who controls what information. The public increasingly encounters this tension but lacks a framework to name it. 2026 midterm campaigning will likely crystallise the argument: not "is AI safe?" but "safe for whom, decided by whom?"</p>
+    </div>
+
+    <div class="trend-block">
+      <div class="trend-label">Emerging Signal 04</div>
+      <h3>Desensitisation to Political AI Fakes Is Creating Epistemic Nihilism</h3>
+      <p>When official government accounts post acknowledged AI fakes as "satire," they train the public to disbelieve all video evidence equally. The long-term consequence is not that fake things get believed — it is that real things get disbelieved. This epistemic nihilism is more dangerous to democracy than any individual deepfake.</p>
+    </div>
+  </div>
+
+  <!-- NARRATIVE BUILDER -->
+  <div class="narrative-block">
+    <div class="narrative-label">✍ Narrative Builder — Seduction Theory Full Stakeholder Read</div>
+    <h2>"The machine didn't choose the darkness. Someone plugged it in."</h2>
+    <p>The global community in 2026 is operating with a fragmented picture. The meme-war image — AI as autonomous weapon, AI as evil surveiller, AI as political puppet-master — is vivid, shareable, emotionally resonant, and substantially wrong. It is also not random. The meme benefits three groups simultaneously: defence contractors who want budget, authoritarian governments who want fear, and political campaigners who want the enemy to appear omnipotent.</p>
+    <p>The reality the global community underestimates is structural. Front-line commanders don't trust AI because they can't afford to — accountability for war crimes is individual, and explaining "the algorithm decided" has never been a legal defence. Surveillance states are dark not because AI chose evil but because humans built systems that lower the cost of the evil they already wanted to do. And the repeated failure to make helpful AI unhelpful is not a technical accident — it is a category error: the harm was never in the helpfulness, it was always in the human deployment context.</p>
+    <p>The most important thing the Seduction Theory diagnostic reveals here is the absence of a shared vocabulary. Meme-warriors, military professionals, civil-liberties researchers, and surveillance victims are all talking about "AI" while meaning entirely different things. Until the global conversation can distinguish between AI-as-analytical-tool, AI-as-amplifier-of-human-intent, and AI-as-scapegoat-for-human-decisions, the meme will keep winning — because it is simpler, and simplicity travels faster than truth.</p>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="disc-label">Disclaimer</div>
+    <p>"The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict."</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>Framework by Gharr · Seduction Theory by John Kyalo Mulinge</span>
+    <span>Built in 2026 · V2.2 · Before it was mainstream</span>
+  </div>
+
+</div>
+</body>
+</html>
