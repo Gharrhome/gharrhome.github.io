@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Real AI Race: Who Reaches the Abundance Era First?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #050810;
+    --deep: #080d1a;
+    --surface: #0d1526;
+    --glass: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.07);
+    --gold: #f0a500;
+    --gold2: #ffd166;
+    --amber: #ff8c00;
+    --cyan: #00e5ff;
+    --teal: #00c8b4;
+    --green: #06d6a0;
+    --red: #ff4d6d;
+    --purple: #9b6dff;
+    --blue: #4895ef;
+    --text: rgba(255,255,255,0.88);
+    --muted: rgba(255,255,255,0.45);
+    --dim: rgba(255,255,255,0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--void);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── STARFIELD ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 40%, rgba(0,180,216,0.055) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 50% at 85% 15%, rgba(240,165,0,0.045) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 55% 85%, rgba(6,214,160,0.04) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 30% at 30% 10%, rgba(155,109,255,0.035) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── FLIGHT RECORDER ── */
+  .flight-recorder {
+    position: relative;
+    z-index: 10;
+    background: rgba(6,214,160,0.07);
+    border-bottom: 1px solid rgba(6,214,160,0.2);
+    padding: 20px 32px;
+  }
+
+  .fr-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .fr-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    max-width: 1100px;
+  }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px 80px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 0 52px;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: rise 0.9s ease forwards 0.2s;
+  }
+
+  h1.hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4.5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: rise 0.9s ease forwards 0.4s;
+  }
+
+  h1.hero-title em { color: var(--gold); font-style: normal; }
+  h1.hero-title .accent { color: var(--cyan); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 740px;
+    margin: 16px auto 0;
+    opacity: 0;
+    animation: rise 0.9s ease forwards 0.6s;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 28px;
+    opacity: 0;
+    animation: rise 0.9s ease forwards 0.8s;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    text-transform: uppercase;
+  }
+  .tag-gold { border: 1px solid rgba(240,165,0,0.4); color: var(--gold); background: rgba(240,165,0,0.07); }
+  .tag-cyan { border: 1px solid rgba(0,229,255,0.35); color: var(--cyan); background: rgba(0,229,255,0.06); }
+  .tag-green { border: 1px solid rgba(6,214,160,0.35); color: var(--green); background: rgba(6,214,160,0.06); }
+  .tag-purple { border: 1px solid rgba(155,109,255,0.35); color: var(--purple); background: rgba(155,109,255,0.06); }
+  .tag-red { border: 1px solid rgba(255,77,109,0.35); color: var(--red); background: rgba(255,77,109,0.06); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 36px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-node {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(20px, 2.5vw, 30px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .section-title span { color: var(--gold); }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .card-gold::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .card-cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+  .card-green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+  .card-purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+  .card-red::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+  .card-teal::before { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+  .card-blue::before { background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+
+  /* ── BIG CONTEXT BLOCK ── */
+  .context-block {
+    background: rgba(240,165,0,0.05);
+    border: 1px solid rgba(240,165,0,0.18);
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 48px;
+  }
+
+  .context-block p { font-size: 16px; color: var(--text); margin-bottom: 14px; }
+  .context-block p:last-child { margin-bottom: 0; }
+  .context-block strong { color: var(--gold2); }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+  @media (max-width: 720px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── SIGNAL CARDS (quotes) ── */
+  .signal-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+
+  .signal-source {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .signal-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .icon-india { background: rgba(240,165,0,0.15); }
+  .icon-africa { background: rgba(6,214,160,0.12); }
+  .icon-latam { background: rgba(155,109,255,0.12); }
+  .icon-global { background: rgba(0,229,255,0.10); }
+  .icon-tech { background: rgba(255,77,109,0.10); }
+
+  .signal-meta {
+    flex: 1;
+  }
+  .signal-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .signal-region {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .signal-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.75;
+    font-style: italic;
+    border-left: 2px solid;
+    padding-left: 14px;
+    margin-bottom: 10px;
+  }
+  .signal-text-gold { border-color: var(--gold); }
+  .signal-text-cyan { border-color: var(--cyan); }
+  .signal-text-green { border-color: var(--green); }
+  .signal-text-purple { border-color: var(--purple); }
+  .signal-text-red { border-color: var(--red); }
+  .signal-text-teal { border-color: var(--teal); }
+
+  .signal-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  /* ── STAKEHOLDER MAP ── */
+  .stakeholder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+
+  .stakeholder-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .stakeholder-card:hover { transform: translateY(-3px); }
+
+  .sh-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .sh-flag {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .sh-info {}
+  .sh-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .sh-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .sh-voice {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .sh-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--dim);
+    text-transform: uppercase;
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    animation: barGrow 1.2s ease forwards;
+    transform-origin: left;
+  }
+
+  @keyframes barGrow {
+    from { width: 0%; }
+    to { width: var(--w); }
+  }
+
+  .fill-gold { background: var(--gold); }
+  .fill-cyan { background: var(--cyan); }
+  .fill-green { background: var(--green); }
+  .fill-purple { background: var(--purple); }
+  .fill-red { background: var(--red); }
+  .fill-teal { background: var(--teal); }
+  .fill-blue { background: var(--blue); }
+  .fill-amber { background: var(--amber); }
+
+  /* ── SEDUCTION THEORY ANALYSIS ── */
+  .seduction-block {
+    background: rgba(155,109,255,0.06);
+    border: 1px solid rgba(155,109,255,0.2);
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 20px;
+  }
+
+  .seduction-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+
+  .seduction-sub {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .seduction-body {
+    font-size: 15.5px;
+    color: var(--text);
+    line-height: 1.85;
+  }
+
+  .seduction-body p { margin-bottom: 16px; }
+  .seduction-body strong { color: var(--gold2); }
+  .seduction-body em { color: var(--cyan); font-style: normal; }
+
+  /* ── TREND SENTINEL ── */
+  .trend-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: var(--glass);
+    transition: border-color 0.25s;
+  }
+  .trend-item:hover { border-color: rgba(255,255,255,0.14); }
+  .trend-item:last-child { margin-bottom: 0; }
+
+  .trend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .trend-content {}
+  .trend-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .trend-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── SILENT VOICES ── */
+  .silent-card {
+    background: rgba(255,77,109,0.04);
+    border: 1px solid rgba(255,77,109,0.15);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .silent-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .silent-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* ── OUTPUT CHIPS ── */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    text-transform: uppercase;
+  }
+  .chip-gold { background: rgba(240,165,0,0.12); color: var(--gold); border: 1px solid rgba(240,165,0,0.3); }
+  .chip-cyan { background: rgba(0,229,255,0.08); color: var(--cyan); border: 1px solid rgba(0,229,255,0.25); }
+  .chip-green { background: rgba(6,214,160,0.08); color: var(--green); border: 1px solid rgba(6,214,160,0.25); }
+  .chip-purple { background: rgba(155,109,255,0.08); color: var(--purple); border: 1px solid rgba(155,109,255,0.25); }
+  .chip-red { background: rgba(255,77,109,0.08); color: var(--red); border: 1px solid rgba(255,77,109,0.25); }
+
+  /* ── SPECTRUM BAR ── */
+  .spectrum-wrapper {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .spectrum-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .spectrum-bar {
+    height: 14px;
+    border-radius: 7px;
+    width: 100%;
+    background: linear-gradient(90deg,
+      var(--red) 0%,
+      var(--amber) 25%,
+      var(--gold) 45%,
+      var(--green) 65%,
+      var(--cyan) 80%,
+      var(--purple) 100%
+    );
+    margin-bottom: 12px;
+  }
+  .spectrum-poles {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── NUMBERS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-item {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .stat-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── FEEDBACK LOOP ── */
+  .feedback-loop {
+    background: rgba(0,229,255,0.04);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .feedback-infinity {
+    font-size: 42px;
+    line-height: 1;
+    flex-shrink: 0;
+    color: var(--cyan);
+  }
+  .feedback-content {}
+  .feedback-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+  .feedback-text {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    background: rgba(240,165,0,0.05);
+    border: 1px solid rgba(240,165,0,0.2);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .disclaimer-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .disclaimer-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+    font-style: italic;
+  }
+  .disclaimer-text strong { color: var(--gold); font-style: normal; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  .footer-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .footer-text span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240,165,0,0.3); }
+    50% { box-shadow: 0 0 0 12px rgba(240,165,0,0); }
+  }
+
+  /* ── RIVER BADGE ── */
+  .river-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .rb-x { background: rgba(29,161,242,0.12); border: 1px solid rgba(29,161,242,0.3); color: #1da1f2; }
+  .rb-blog { background: rgba(240,165,0,0.08); border: 1px solid rgba(240,165,0,0.25); color: var(--gold); }
+  .rb-forum { background: rgba(255,69,0,0.08); border: 1px solid rgba(255,69,0,0.25); color: #ff4500; }
+  .rb-research { background: rgba(6,214,160,0.08); border: 1px solid rgba(6,214,160,0.25); color: var(--green); }
+  .rb-video { background: rgba(255,0,0,0.08); border: 1px solid rgba(255,0,0,0.25); color: #ff4444; }
+  .rb-summit { background: rgba(155,109,255,0.08); border: 1px solid rgba(155,109,255,0.25); color: var(--purple); }
+
+  /* ── INTRO BAND ── */
+  .intro-band {
+    background: linear-gradient(135deg, rgba(0,229,255,0.04), rgba(240,165,0,0.04));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 700px) { .intro-band { grid-template-columns: 1fr; } }
+
+  .intro-item {}
+  .intro-item-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .intro-item-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .intro-item-value span { color: var(--gold); }
+
+  /* ── PATTERN CARDS ── */
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .pattern-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .pattern-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    opacity: 0.12;
+    line-height: 1;
+    margin-bottom: -12px;
+  }
+
+  .pattern-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .pattern-text {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* wide card */
+  .span-2 { grid-column: span 2; }
+  @media (max-width: 720px) { .span-2 { grid-column: span 1; } }
+
+</style>
+</head>
+<body>
+
+<!-- FLIGHT RECORDER -->
+<div class="flight-recorder">
+  <div class="fr-label">✈ Flight Recorder — Question Asked (exact carbon copy)</div>
+  <div class="fr-text">"What does the global community think about the real AI race — not military dominance but who reaches the abundance era first — and what do people think will happen if we win the abundance era race where human creativity becomes a vertical cliff. Focus especially on the voices from the countries from The New Delhi Declaration (signed by 91 countries) because these countries are setting up the environment that will probably bring them to the abundance era very quickly, changes are already happening in 2026, and AI for the benefit of the people, a continuing commitment to democracy (namely the people vote for who leads the country); and the very likely follow up statement from the  91 countries that abundance era (AI, Automation, innovation) is for the benefit of all the people."</div>
+</div>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">🌍 Seduction Theory · Global Stakeholder Map · March 2026</div>
+    <h1 class="hero-title">The <em>Real</em> AI Race:<br><span class="accent">Who Reaches Abundance First?</span></h1>
+    <p class="hero-sub">Not bullets. Not dominance. The global community is asking a different question — and 91 countries just signed a declaration that rewrites who's in the race and what winning actually means.</p>
+    <div class="hero-tags">
+      <span class="tag tag-gold">91 Nations · New Delhi Declaration · Feb 2026</span>
+      <span class="tag tag-cyan">Abundance Era · AI For All</span>
+      <span class="tag tag-green">Global South Rising</span>
+      <span class="tag tag-purple">Democracy as Infrastructure</span>
+      <span class="tag tag-red">Human Creativity Vertical</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--gold);">91</div>
+      <div class="stat-desc">Nations signed New Delhi Declaration Feb 2026</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--cyan);">$250B</div>
+      <div class="stat-desc">Investment pledged at AI Impact Summit 2026</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--green);">500K+</div>
+      <div class="stat-desc">Attendees — largest AI summit ever held</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--purple);">7</div>
+      <div class="stat-desc">Chakras (pillars) structuring global AI cooperation</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color: var(--red);">1st</div>
+      <div class="stat-desc">Major AI summit held in the Global South</div>
+    </div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="context-block">
+    <p>On February 18–19, 2026, New Delhi hosted the largest AI summit in human history. The tagline was not "AI Safety" or "AI Dominance." It was <strong>"Sarvajan Hitaya, Sarvajan Sukhaya" — Welfare for All, Happiness for All.</strong> This was not an accident. India deliberately shifted the global AI conversation from the security-first, risk-obsessed framing of Western summits toward a development-first, inclusion-first vision. Ninety-one countries signed on — including both the US and China, who have never agreed on anything in the AI space before.</p>
+    <p>The New Delhi Declaration's seven "Chakras" — democratising AI resources, social empowerment, trustworthy systems, energy efficiency, AI for science, human capital development, and resilient infrastructure — form a blueprint not for military dominance, but for <strong>civilisational leap</strong>. The global community is increasingly clear: the real race is not the arms race. The real race is to the <strong>abundance era.</strong></p>
+    <p>And the 91-country bloc has made something else plain: when the abundance era comes, it is <strong>for the people, all of the people</strong> — not concentrated in two countries or twelve corporations. That is the seduction. That is the map. Let us read it.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-node">🌊 River Scout — Signal Harvested From The Jungle</div><div class="divider-line"></div></div>
+
+  <!-- PATTERN MIND -->
+  <div class="section-header">
+    <div class="section-label">Pattern Mind · Agent 3</div>
+    <div class="section-title">What The Global Community <span>Is Actually Saying</span></div>
+  </div>
+
+  <div class="pattern-grid" style="margin-bottom: 48px;">
+    <div class="pattern-card card-gold">
+      <div class="pattern-num" style="color: var(--gold);">01</div>
+      <div class="pattern-title">The Race Has Been Reframed</div>
+      <div class="pattern-text">The US-China framing — a binary contest for frontier AI supremacy — is being rejected by the 91. They are not asking "who wins the arms race?" They are asking "who deploys AI at scale for real people first?" Stimson Center analysis confirms: first-mover advantage belongs to the country that embeds AI across factories, hospitals, and farms — not to whoever trains the biggest model.</div>
+    </div>
+    <div class="pattern-card card-cyan">
+      <div class="pattern-num" style="color: var(--cyan);">02</div>
+      <div class="pattern-title">Abundance as Democratic Inheritance</div>
+      <div class="pattern-text">The loudest emerging signal is that abundance is being framed as a democratic right, not a market outcome. "AI for All Inclusive" — the Indian government's own slogan — echoes across forums in Nigeria, blogs from São Paulo, and researcher papers from Jakarta. Rumman Chowdhury of Humane Intelligence told TIME: "There would be no credible AI summit in the West that had that tagline." The Global South is changing the conversation.</div>
+    </div>
+    <div class="pattern-card card-green">
+      <div class="pattern-num" style="color: var(--green);">03</div>
+      <div class="pattern-title">Human Creativity Becomes The Vertical Cliff</div>
+      <div class="pattern-text">Sam Altman's vision — that by 2035, anyone on Earth can marshall the intellectual capacity of every person alive today — maps directly onto the 91's own philosophy: "There is a great deal of talent right now without the resources to fully express itself." When the dam breaks, the waterfall is vertical. The WEF confirms: in an AI-abundant world, human creativity, context, and judgment are not automated away — they become exponentially more valuable.</div>
+    </div>
+    <div class="pattern-card card-purple">
+      <div class="pattern-num" style="color: var(--purple);">04</div>
+      <div class="pattern-title">Middle Powers Are The Swing Vote</div>
+      <div class="pattern-text">India, Brazil, Nigeria, Indonesia, and the EU are all building indigenous AI capacity specifically to avoid choosing between the US and China. Yoshua Bengio (AI Godfather) said it plainly: "We don't want to end up in a world where we have two hegemons who each control part of the world." The 91 countries are the coalition to prevent that. Democracy — the people voting for their leaders — is their shared firewall against AI-enabled authoritarian lock-in.</div>
+    </div>
+    <div class="pattern-card card-red">
+      <div class="pattern-num" style="color: var(--red);">05</div>
+      <div class="pattern-title">The Silence That Screams</div>
+      <div class="pattern-text">Two things are conspicuously absent from the 91's declaration: binding enforcement, and any mention of existential safety risks. The West's "AI safety" community is alarmed. Mark Brakel (Future of Life Institute) said risks "didn't make it to the official outcome." The 91's silence on these issues is itself a signal — they are more afraid of being locked out of abundance than they are of superintelligence. That priority ordering is worth understanding.</div>
+    </div>
+    <div class="pattern-card card-teal">
+      <div class="pattern-num" style="color: var(--teal);">06</div>
+      <div class="pattern-title">2026 Is Not The Beginning — It Is The Inflection</div>
+      <div class="pattern-text">The changes are already here. India integrates AI with UPI for voice payments. Open Healthcare Network uses AI translation so nurses write records without language barriers. Brazil's PIX digital rail is being extended across Latin America. Africa's Lelapa AI trains models on five African languages for 350 million speakers. The abundance era is not coming. For the 91, it has already begun to arrive — unevenly, but unmistakably.</div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-node">📡 Signal Harvester — Voices From The Wild Rivers</div><div class="divider-line"></div></div>
+
+  <!-- AUTHENTIC VOICES -->
+  <div class="section-header">
+    <div class="section-label">Signal Harvester · Agent 2 — Jungle Rivers: Blogs, Summits, Forums, Research</div>
+    <div class="section-title">Authentic Voices: <span>What The 91 Are Saying</span></div>
+  </div>
+
+  <div class="grid-auto" style="margin-bottom: 48px;">
+
+    <div class="signal-card">
+      <div class="river-badge rb-summit">🌐 AI Impact Summit</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-india">🇮🇳</div>
+        <div class="signal-meta">
+          <div class="signal-name">PM Modi · India</div>
+          <div class="signal-region">Host Nation · Global South Leader</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-gold">"For India, AI stands for All Inclusive. The MANAV paradigm — an integrated, humanistic framework — must guide global AI, not the narrow pursuit of frontier model dominance."</div>
+      <span class="signal-tag" style="background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);color:var(--gold);">WELFARE FOR ALL</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-summit">🌐 AI Impact Summit Session</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-latam">🇧🇷</div>
+        <div class="signal-meta">
+          <div class="signal-name">Luanna Roncaratti · Brazil</div>
+          <div class="signal-region">Deputy Secretary, Digital Government</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-purple">"For large, fast-growing democracies, AI is not only a technological shift — it is about behaviour, inclusion and social impact. Public services, healthcare and quality of life improve when development remains aligned with human rights and sovereignty."</div>
+      <span class="signal-tag" style="background:rgba(155,109,255,0.1);border:1px solid rgba(155,109,255,0.3);color:var(--purple);">DEMOCRACY + AI</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-research">🔬 Brookings Institution</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-global">🌍</div>
+        <div class="signal-meta">
+          <div class="signal-name">AI Sovereignty Research · 2026</div>
+          <div class="signal-region">Policy Think Tank</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-cyan">"Support for multiple languages enhances the utility of AI, providing wider access to the knowledge and benefits that AI enables. There are sound reasons for countries to seek agency over AI systems. The race that matters is the race to relevant, inclusive AI — not the race to the biggest model."</div>
+      <span class="signal-tag" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);color:var(--cyan);">AI SOVEREIGNTY</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-blog">📝 Sam Altman · Blog</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-tech">⚡</div>
+        <div class="signal-meta">
+          <div class="signal-name">Sam Altman · OpenAI CEO</div>
+          <div class="signal-region">The Gentle Singularity</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-green">"Anyone in 2035 should be able to marshall the intellectual capacity equivalent to everyone in 2025. There is a great deal of talent right now without the resources to fully express itself. If we change that, the resulting creative output of the world will lead to tremendous benefits for us all."</div>
+      <span class="signal-tag" style="background:rgba(6,214,160,0.1);border:1px solid rgba(6,214,160,0.3);color:var(--green);">ABUNDANCE VISION</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-research">🔬 Stimson Center Analysis</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-global">🌐</div>
+        <div class="signal-meta">
+          <div class="signal-name">America Is Running The Wrong AI Race</div>
+          <div class="signal-region">Jan 2026 · Policy Research</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-red">"First-mover advantage will not be won by the country that produces marginally superior models, but by the one that embeds AI — efficiently, safely, and ubiquitously — across factories, transportation systems, and public services. The greatest risk America faces is winning the AI frontier and still losing the AI era."</div>
+      <span class="signal-tag" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:var(--red);">DEPLOYMENT > FRONTIER</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-research">🔬 Carnegie Endowment</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-africa">🌍</div>
+        <div class="signal-meta">
+          <div class="signal-name">Africa AI Governance · Continental Voice</div>
+          <div class="signal-region">Policymakers Across Africa</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-teal">"AI governance should be recast as a matter of sovereignty. We cannot afford to treat AI like any other technology. Its creation and governance must reflect the urgency of who we are and what we need. Africa must move from consumer to global leader in the AI age."</div>
+      <span class="signal-tag" style="background:rgba(0,200,180,0.1);border:1px solid rgba(0,200,180,0.3);color:var(--teal);">AFRICA RISING</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-blog">📝 UPI Analysis · Feb 2026</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-latam">🌎</div>
+        <div class="signal-meta">
+          <div class="signal-name">Latin America · Sovereignty or Dependence</div>
+          <div class="signal-region">UPI Voices Column · Feb 18, 2026</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-purple">"Artificial intelligence is reorganizing economic power, reshaping political influence and redefining what sovereignty means. For a region that attracts just 1.1% of worldwide AI investment while producing 6.6% of global GDP, the stakes of this race are existential — not military, but economic and democratic."</div>
+      <span class="signal-tag" style="background:rgba(155,109,255,0.1);border:1px solid rgba(155,109,255,0.3);color:var(--purple);">LATAM VOICE</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-summit">🌐 Yoshua Bengio · AI Godfather</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-global">🧠</div>
+        <div class="signal-meta">
+          <div class="signal-name">Yoshua Bengio · Delhi Summit Interview</div>
+          <div class="signal-region">Computer Scientist, Turing Award Winner</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-cyan">"We don't want to end up in a world where we have two hegemons who each control part of the world. It's a question of democracy and a kind of equitable world order in which no one country can use technology to dominate the others. If you see the opposite of a trustworthy partner, you want to be preparing Plan B."</div>
+      <span class="signal-tag" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);color:var(--cyan);">HEGEMONY RISK</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-forum">💬 NewKerala Community Comments</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-india">🇮🇳</div>
+        <div class="signal-meta">
+          <div class="signal-name">Community Forum · Indian Engineers</div>
+          <div class="signal-region">Authentic Online Response · Feb 2026</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-gold">"91 countries is impressive! Shows the world is taking India's lead seriously. But I have a respectful criticism: these summits often produce grand declarations. What about the digital divide in our own villages? The 'access for social empowerment' pillar must include plans for rural India's internet and power issues."</div>
+      <span class="signal-tag" style="background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);color:var(--gold);">GROUND TRUTH</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-blog">📝 WEF Analysis · 2026</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-global">🌐</div>
+        <div class="signal-meta">
+          <div class="signal-name">Global South AI Ecosystems · WEF Report</div>
+          <div class="signal-region">World Economic Forum</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-green">"Together, the Global South's emerging AI ecosystems — rooted in linguistic diversity, indigenous epistemologies, digital public infrastructure and shared compute — are catalysing AI-powered entrepreneurship shaped by local values, needs and lived realities. The geography of AI is skewed, but the Global South is beginning to rebalance it."</div>
+      <span class="signal-tag" style="background:rgba(6,214,160,0.1);border:1px solid rgba(6,214,160,0.3);color:var(--green);">REBALANCING</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-blog">📝 Organiser India · March 2026</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-india">🇮🇳</div>
+        <div class="signal-meta">
+          <div class="signal-name">AI Impact Summit 2026 Analysis · Bharat</div>
+          <div class="signal-region">Bharat/India Policy Voice</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-gold">"Bharat must transition from AI user to AI creator; from technology adopter to agenda-setter; from participant to global thought leader. Solutions built for Bharat's complexity — multilingual populations, diverse socio-economic conditions, large-scale public systems — can serve as models for all developing nations."</div>
+      <span class="signal-tag" style="background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);color:var(--gold);">INDIA VISION</span>
+    </div>
+
+    <div class="signal-card">
+      <div class="river-badge rb-blog">📝 Microsoft On The Issues · Feb 2026</div>
+      <div class="signal-source">
+        <div class="signal-icon icon-global">💼</div>
+        <div class="signal-meta">
+          <div class="signal-name">Brad Smith · Microsoft President</div>
+          <div class="signal-region">AI Diffusion Report · India Summit</div>
+        </div>
+      </div>
+      <div class="signal-text signal-text-cyan">"AI usage in the Global North is roughly twice that of the Global South — and this divide continues to widen. This disparity impacts not only national and regional economic growth, but whether AI can deliver on its broader promise of expanding opportunity and prosperity around the world."</div>
+      <span class="signal-tag" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);color:var(--cyan);">AI DIVIDE</span>
+    </div>
+
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-node">🗺️ Stakeholder Mapper — Agent 4</div><div class="divider-line"></div></div>
+
+  <!-- STAKEHOLDER MAP -->
+  <div class="section-header">
+    <div class="section-label">Stakeholder Mapper · Agent 4 — Who is speaking, who is silent, and why</div>
+    <div class="section-title">The Full <span>Stakeholder Map</span></div>
+  </div>
+
+  <div class="stakeholder-grid" style="margin-bottom: 48px;">
+
+    <div class="stakeholder-card" style="border-color: rgba(240,165,0,0.2);">
+      <div class="sh-header">
+        <div class="sh-flag">🇮🇳</div>
+        <div class="sh-info">
+          <div class="sh-name">India / Bharat</div>
+          <div class="sh-type">Host · Architect · Loudest Voice</div>
+        </div>
+      </div>
+      <div class="sh-voice">The convener and chief strategist of the 91-country bloc. India's "AI for All Inclusive" framing isn't just rhetoric — it's a direct bid to position India as the democratic alternative to the US-China duopoly. Already deploying AI through UPI voice payments, Open Healthcare Network's medical transcription, and DPI-integrated governance. Racing to be the world's abundance-era model.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Ambition</div><div class="bar-track"><div class="bar-fill fill-gold" style="--w:92%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Execution</div><div class="bar-track"><div class="bar-fill fill-amber" style="--w:67%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Democracy</div><div class="bar-track"><div class="bar-fill fill-green" style="--w:78%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(155,109,255,0.2);">
+      <div class="sh-header">
+        <div class="sh-flag">🇧🇷</div>
+        <div class="sh-info">
+          <div class="sh-name">Brazil</div>
+          <div class="sh-type">Digital Pioneer · Democratic Model</div>
+        </div>
+      </div>
+      <div class="sh-voice">Already home to PIX — the world's most successful public digital payments rail, now extending across Latin America. Launched a $4B AI plan in 2024. Brazil's deputy secretary at Delhi said AI is "about behaviour, inclusion and social impact." The data: NuBank uses PIX's public rail to serve 90M+ people. Brazil is proving democratic digital infrastructure works — and can be exported.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">DPI Ready</div><div class="bar-track"><div class="bar-fill fill-purple" style="--w:85%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Inclusion</div><div class="bar-track"><div class="bar-fill fill-green" style="--w:80%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Sovereignty</div><div class="bar-track"><div class="bar-fill fill-teal" style="--w:72%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(6,214,160,0.2);">
+      <div class="sh-header">
+        <div class="sh-flag">🌍</div>
+        <div class="sh-info">
+          <div class="sh-name">African Nations</div>
+          <div class="sh-type">54 Countries · Linguistic AI Frontier</div>
+        </div>
+      </div>
+      <div class="sh-voice">Building AI that reflects African values, not imported Western epistemologies. Lelapa AI (InkubaLM) covers 5 African languages, 350M speakers. Nigeria building multilingual LLMs with diaspora support. The Masakhane initiative embeds Ubuntu community-centred values into AI. Africa's signal: "We can't afford to treat AI like any other technology — its governance must be a matter of sovereignty." Moving from consumer to architect.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Language AI</div><div class="bar-track"><div class="bar-fill fill-green" style="--w:62%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Policy</div><div class="bar-track"><div class="bar-fill fill-teal" style="--w:55%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Compute</div><div class="bar-track"><div class="bar-fill fill-red" style="--w:22%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(0,229,255,0.2);">
+      <div class="sh-header">
+        <div class="sh-flag">🇪🇺</div>
+        <div class="sh-info">
+          <div class="sh-name">European Union</div>
+          <div class="sh-type">Middle Power · Regulation + Values</div>
+        </div>
+      </div>
+      <div class="sh-voice">Signed the Delhi Declaration but not without anxiety. The EU signed alongside the US, which it has not done at previous summits. Rattled by Trump's threats to NATO and dominance ambitions, EU nations are accelerating sovereign AI capabilities. Norway's AI unit: "guardrails must be in place if AI is to strengthen rather than undermine trust." Jensen Huang told Davos: Europe has the strongest manufacturing base to build AI infrastructure — "get in early now." The EU is slowly awakening.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Regulation</div><div class="bar-track"><div class="bar-fill fill-cyan" style="--w:90%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Deployment</div><div class="bar-track"><div class="bar-fill fill-blue" style="--w:50%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Urgency</div><div class="bar-track"><div class="bar-fill fill-amber" style="--w:58%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(255,77,109,0.2);">
+      <div class="sh-header">
+        <div class="sh-flag">🇺🇸</div>
+        <div class="sh-info">
+          <div class="sh-name">United States</div>
+          <div class="sh-type">Frontier Leader · Wrong Race Risk</div>
+        </div>
+      </div>
+      <div class="sh-voice">Signed Delhi but brought its own agenda: the White House openly said "we totally reject global governance of AI." Kratsios defined sovereignty as "using best-in-class technology" — i.e. US technology. Eric Schmidt's warning: "The greatest risk America faces is winning the AI frontier and still losing the AI era." The US has the models but the 91-country bloc may achieve deployment-era abundance faster, especially through democratic DPI infrastructure the US lacks at population scale.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Frontier AI</div><div class="bar-track"><div class="bar-fill fill-blue" style="--w:95%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Deployment Scale</div><div class="bar-track"><div class="bar-fill fill-amber" style="--w:60%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">91-Alignment</div><div class="bar-track"><div class="bar-fill fill-red" style="--w:32%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(255,77,109,0.18);">
+      <div class="sh-header">
+        <div class="sh-flag">🇨🇳</div>
+        <div class="sh-info">
+          <div class="sh-name">China</div>
+          <div class="sh-type">Deployment Champion · Governance Gap</div>
+        </div>
+      </div>
+      <div class="sh-voice">The Stimson Center notes China may already be "years ahead" in AI deployment — treating AI as infrastructure through top-down industrial policy integrated into hospitals, ports, power grids, and manufacturing. Chinese citizens are far more willing to accept AI than Western publics. But the 91 are wary: China's data governance is being exported to Africa with limited transparency. Countries like Senegal face serious questions about data sovereignty when adopting Chinese infrastructure. Not in the abundance-for-democracy lane.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Deployment</div><div class="bar-track"><div class="bar-fill fill-red" style="--w:88%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Democracy</div><div class="bar-track"><div class="bar-fill fill-red" style="--w:15%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">91 Trust</div><div class="bar-track"><div class="bar-fill fill-amber" style="--w:35%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(0,200,180,0.2);">
+      <div class="sh-header">
+        <div class="sh-flag">🇮🇩</div>
+        <div class="sh-info">
+          <div class="sh-name">Indonesia / SE Asia</div>
+          <div class="sh-type">Scale Play · 270M+ People</div>
+        </div>
+      </div>
+      <div class="sh-voice">Indonesia represents the single largest unaddressed market for AI abundance deployment. With 270M+ people, rich linguistic diversity, and a youthful population, SE Asia is the test bed for whether AI-powered leapfrogging actually works. Government voice payments, agricultural AI, DPI integration — if India is the model, Indonesia is the first export market. Already amplifying the 91's narrative that abundance is for its peoples first.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Population Scale</div><div class="bar-track"><div class="bar-fill fill-teal" style="--w:88%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Leapfrog Potential</div><div class="bar-track"><div class="bar-fill fill-green" style="--w:76%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Current AI Use</div><div class="bar-track"><div class="bar-fill fill-amber" style="--w:40%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="stakeholder-card" style="border-color: rgba(240,165,0,0.15);">
+      <div class="sh-header">
+        <div class="sh-flag">🌐</div>
+        <div class="sh-info">
+          <div class="sh-name">The Silent Stakeholder</div>
+          <div class="sh-type">Rural Populations · 3.5B People</div>
+        </div>
+      </div>
+      <div class="sh-voice">The Indian forum commenter said it best: "What about the digital divide in our own villages?" The 3.5 billion people without reliable connectivity are the biggest absent voice in this entire map. They are the people the abundance era is supposedly for — and the ones least likely to be heard in summit proceedings. Their silence is the most important feature of this map. If the abundance era doesn't reach them, it is not abundance. It is a new kind of concentration.</div>
+      <div class="sh-bars">
+        <div class="bar-row"><div class="bar-label">Summit Voice</div><div class="bar-track"><div class="bar-fill fill-red" style="--w:5%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">At Stake</div><div class="bar-track"><div class="bar-fill fill-gold" style="--w:100%"></div></div></div>
+        <div class="bar-row"><div class="bar-label">Connectivity</div><div class="bar-track"><div class="bar-fill fill-red" style="--w:28%"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SENTIMENT SPECTRUM -->
+  <div class="spectrum-wrapper">
+    <div class="spectrum-label">Global Sentiment Spectrum — Where Does The World Stand On "Abundance For All"?</div>
+    <div class="spectrum-bar"></div>
+    <div class="spectrum-poles">
+      <span>🚨 Skeptical / Extractive<br><small style="color:var(--dim);font-size:9px;">Concentration fear · Arms race only</small></span>
+      <span style="text-align:center">⚖️ Cautious Optimism<br><small style="color:var(--dim);font-size:9px;">91 countries · Middle powers</small></span>
+      <span style="text-align:right">🌟 Transformative Belief<br><small style="color:var(--dim);font-size:9px;">Vertical creativity cliff · DPI builders</small></span>
+    </div>
+    <div style="margin-top: 20px; font-size: 14px; color: var(--muted); line-height: 1.7;">
+      <strong style="color:#fff;">Reading the spectrum:</strong> The 91 countries cluster in the middle-right zone — cautious but building. They believe abundance is possible AND achievable for their people, but are deeply skeptical of relying on the US or China to deliver it. The loudest skeptics are Western safety researchers (far left) and extractive-tech critics in the Global South. The loudest believers are the DPI builders in India, Brazil, and Africa — because they are already seeing it work.
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-node">📡 Trend Sentinel — Agent 6 — Signals Before They Go Mainstream</div><div class="divider-line"></div></div>
+
+  <!-- TREND SENTINEL -->
+  <div class="section-header">
+    <div class="section-label">Trend Sentinel · Agent 6</div>
+    <div class="section-title">Emerging Signals: <span>Before They Become Headlines</span></div>
+  </div>
+
+  <div style="margin-bottom: 48px;">
+    <div class="trend-item">
+      <div class="trend-dot" style="background:var(--gold);box-shadow:0 0 8px var(--gold);"></div>
+      <div class="trend-content">
+        <div class="trend-headline">The Follow-Up Declaration Is Already Being Written</div>
+        <div class="trend-text">The 91's first declaration was deliberately vague — enough to get signatures from both the US and China. But multiple signals suggest the follow-up is where the real commitment emerges: "The abundance era is for the benefit of all people." South–South collaboration, innovation challenges, and cross-border capacity-building are already being structured. Countries are "translating aspirations into concrete actions." The next declaration will be more specific — and more binding on signatories' domestic AI policy.</div>
+      </div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-dot" style="background:var(--cyan);box-shadow:0 0 8px var(--cyan);"></div>
+      <div class="trend-content">
+        <div class="trend-headline">Human Creativity as the Vertical Cliff — Already Emerging in 2026</div>
+        <div class="trend-text">The WEF published in January 2026: "Creatives must be AI-native and human-native, leveraging automation to explore humanity." As AI handles the routine, human creativity — cultural context, lived experience, emotional depth, indigenous knowledge — becomes the scarce and valuable resource. The Global South has enormous reserves of this: African languages, Indian philosophical traditions, Latin American political creativity. These are not weaknesses in the abundance race — they are the competitive advantages that most forecasters haven't priced in.</div>
+      </div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-dot" style="background:var(--green);box-shadow:0 0 8px var(--green);"></div>
+      <div class="trend-content">
+        <div class="trend-headline">DPI (Digital Public Infrastructure) as the Abundance-Era Launchpad</div>
+        <div class="trend-text">India's UPI, Brazil's PIX, and Africa's emerging DPI frameworks are the under-reported story of this race. These public rails — government-built, freely accessible, democratically governed — allow AI applications to reach everyone, not just smartphone users with credit cards. When AI sits on top of DPI, abundance distributes itself. The 91 countries who have or are building DPI are on the fastest path to the abundance era. This is the insight most Western analysts are missing entirely.</div>
+      </div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-dot" style="background:var(--purple);box-shadow:0 0 8px var(--purple);"></div>
+      <div class="trend-content">
+        <div class="trend-headline">"Sovereignty as a Service" — The New Dependency Risk</div>
+        <div class="trend-text">Multiple voices at Delhi raised a quiet alarm: Microsoft, Google, and other Western tech giants are offering "sovereign AI" packages — local data, local compute, local control — but still built on their platforms and models. This is "Sovereignty as a Service," and critics note it may create new monopolies while appearing to solve old ones. Countries that accept this arrangement may reach abundance first but find they don't own it. The 91 with truly indigenous AI capacity — India's Sarvam AI, Africa's Masakhane, Brazil's sovereign cloud — will be watching this tension closely.</div>
+      </div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-dot" style="background:var(--red);box-shadow:0 0 8px var(--red);"></div>
+      <div class="trend-content">
+        <div class="trend-headline">Democracy as the Tiebreaker</div>
+        <div class="trend-text">The single most underreported theme at Delhi: democracy is not just a value claim — it is a functional advantage in the abundance race. Countries where people vote for their leaders have a built-in feedback mechanism on whether AI is actually delivering abundance to people. Authoritarian deployment may be faster, but democratic deployment is self-correcting. The 91's commitment to "the people vote for who leads the country" is also a commitment to accountability — and accountability is what keeps the abundance from being captured by elites before it reaches the rest.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-node">🧠 Narrative Builder — Seduction Theory Layer — Agent 7</div><div class="divider-line"></div></div>
+
+  <!-- SEDUCTION THEORY -->
+  <div class="seduction-block">
+    <div class="seduction-title">Seduction Theory Diagnostic</div>
+    <div class="seduction-sub">What Does The Full Stakeholder Picture Reveal?</div>
+    <div class="seduction-body">
+
+      <p><strong>The Official Narrative</strong> is that the AI race is between the US and China — a binary contest for frontier model supremacy, chip dominance, and military application. Every Western media outlet tells this story. It is real. It is also incomplete.</p>
+
+      <p><strong>The Hidden Narrative</strong> — the one the 91 countries are building — is that the abundance race has a completely different set of players, metrics, and winning conditions. You do not win it by training the largest model. You win it by being the first country whose <em>ordinary people</em> experience AI-powered abundance in their daily lives: cheaper healthcare, better education, higher income, more creative freedom.</p>
+
+      <p><strong>The Seduction at the Heart of the Delhi Declaration</strong> is this: 91 countries — representing the majority of humanity — have collectively decided that the abundance era belongs to the people. Not to corporations. Not to governments. Not to the AI lab with the biggest GPU cluster. To people. This is a political act wrapped in a technical declaration. The seven "Chakras" are not tech pillars. They are a manifesto for post-scarcity democracy.</p>
+
+      <p><strong>The Creativity Cliff: What Happens When Abundance Arrives?</strong> Sam Altman writes that in 2035, one person should be able to accomplish what the most impactful person alive can do today. Multiply that by 8 billion. The WEF calls it the moment AI makes the need for "more human creativity" not less — because routine work is automated away, leaving only the irreducibly human work: meaning-making, cultural creation, ethical judgment, love. This is the creativity cliff that becomes vertical. <em>The Global South, with its extraordinary reserves of language, culture, philosophy, and lived knowledge, may be the biggest winner of that cliff.</em></p>
+
+      <p><strong>The Silence as Signal:</strong> The 91's declaration said nothing about existential AI risk, nothing about safety from superintelligence, nothing about the threats that obsess Western researchers. Why? Because 4 billion people living without reliable electricity, clean water, or healthcare are not worried about superintelligence. They are worried about being left out of the abundance era again — as they were left out of the industrial era, the digital era, and the internet era. Their silence on existential risk is not ignorance. It is a different, entirely rational, priority ordering.</p>
+
+      <p><strong>The Most Dangerous Assumption:</strong> That the US wins the abundance race by default because it has the best models. Eric Schmidt put the antidote plainly: "Building the most powerful systems matters little if other nations deploy them more effectively." The 91 countries are building the deployment infrastructure, the linguistic reach, the democratic accountability, and the DPI rails to deploy AI to everyone. <em>They may reach the abundance era first — not despite their democratic commitments, but because of them.</em></p>
+
+    </div>
+  </div>
+
+  <!-- SILENT VOICES -->
+  <div class="grid-2" style="margin-bottom: 48px;">
+    <div class="silent-card">
+      <div class="silent-title">⚠ Absent Voice #1 — The Rural Poor</div>
+      <div class="silent-text">3.5 billion people without reliable connectivity had no seat at the Delhi summit. Indian engineers in online forums raised it: "What about the digital divide in our own villages?" This is the test. The abundance era that does not reach them is not abundance. Every metric the 91 use must be filtered through this question.</div>
+    </div>
+    <div class="silent-card">
+      <div class="silent-title">⚠ Absent Voice #2 — Creative Workers</div>
+      <div class="silent-text">UNESCO's February 2026 report warns generative AI could cause "the greatest losses" to cultural and creative industries. The people who make art, music, journalism, and culture were not at the table in Delhi. The creativity cliff that enriches engineers may impoverish artists. This tension inside the abundance era is unresolved — and the 91 have not yet addressed it.</div>
+    </div>
+    <div class="silent-card">
+      <div class="silent-title">⚠ Absent Voice #3 — The Safety Researchers</div>
+      <div class="silent-text">Mark Brakel (Future of Life Institute): "So many risks... were discussed in the corridors with greater urgency than ever but didn't make it to the official outcome." The 91's declaration is silent on loss of control risks, biosecurity, and AI weaponisation. These concerns are real. Their absence from the declaration does not make them unreal. The abundance era and the safety question must both be answered.</div>
+    </div>
+    <div class="silent-card">
+      <div class="silent-title">⚠ Absent Voice #4 — Local Data Owners</div>
+      <div class="silent-text">Africa's AI is currently mostly imported, trained on non-African data. Latin America's most powerful supercomputer (Petrobras, Brazil) stores strategic oil data on North American servers. The people who generate the data — and whose behaviour, language, and knowledge trains AI systems — receive almost none of the economic value. The abundance era must resolve this, or it simply creates new extraction with a democratic label.</div>
+    </div>
+  </div>
+
+  <!-- FEEDBACK LOOP -->
+  <div class="feedback-loop" style="margin-bottom: 48px;">
+    <div class="feedback-infinity">♾️</div>
+    <div class="feedback-content">
+      <div class="feedback-title">The Continuous Feedback Loop: How The 91 Compound Their Advantage</div>
+      <div class="feedback-text">Every AI deployment in a democratic context generates data, feedback, and correction signals that improve the system for that people. Every DPI transaction from Brazil's PIX trains a more inclusive financial AI. Every voice payment on India's UPI trains a more multilingual AI. Every medical record transcribed in an African language trains a more inclusive healthcare AI. The abundance era is not a one-time event. It is a compounding loop. <strong style="color:var(--cyan);">The 91 countries that build democratic AI infrastructure now will compound their advantage with every iteration. The race is already being run.</strong></div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="disclaimer-icon">🧭</div>
+    <div class="disclaimer-text">
+      <strong>The Disclaimer — Always Read This:</strong> "The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict." The 91 countries' vision of abundance for all may be aspirational. The Delhi Declaration is voluntary and non-binding. The gap between declaration and delivery is enormous. But the direction of travel is clear, the political will is mobilising, and the infrastructure is already being built. Watch the builders, not just the declarations.
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p class="footer-text">Framework by <span>Gharr</span> · Seduction Theory by <span>John Kyalo Mulinge</span> · Map rendered March 2026 · Signal sourced from the wild rivers · Before it was mainstream</p>
+</footer>
+
+</body>
+</html>
