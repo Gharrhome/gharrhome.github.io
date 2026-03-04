@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seduction Theory: Universal Agent Organization</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+  :root {
+    --bg: #050a14;
+    --deep: #070d1c;
+    --gold: #f0a500;
+    --gold2: #ffd166;
+    --cyan: #00e5ff;
+    --teal: #00b4d8;
+    --green: #06d6a0;
+    --red: #ff477e;
+    --purple: #9b5de5;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    color: white;
+    background: var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(0,180,216,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(240,165,0,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(6,214,160,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .title-small {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  h1 span { color: var(--gold); }
+
+  .subtitle {
+    font-size: 20px;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  /* MAIN DIAGRAM */
+  .diagram {
+    position: relative;
+    width: 100%;
+  }
+
+  /* SVG CONNECTIONS */
+  .connections-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* DIAL - CENTER */
+  .dial-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.8s;
+  }
+
+  .dial {
+    position: relative;
+    width: 220px;
+    height: 220px;
+  }
+
+  .dial-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 30px rgba(240,165,0,0.4), inset 0 0 30px rgba(240,165,0,0.1);
+    animation: pulse-gold 3s ease-in-out infinite;
+  }
+
+  .dial-ring-2 {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(240,165,0,0.3);
+    animation: spin-slow 20s linear infinite;
+  }
+
+  .dial-ring-2::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  .dial-inner {
+    position: absolute;
+    inset: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.15) 0%, rgba(5,10,20,0.95) 70%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .dial-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .dial-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .dial-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* LAYER LABELS */
+  .layer-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 6px 20px;
+    display: inline-block;
+    border-radius: 2px;
+  }
+
+  .layer-label.seduction { color: var(--gold); border-bottom: 1px solid rgba(240,165,0,0.3); }
+  .layer-label.agents { color: var(--cyan); border-bottom: 1px solid rgba(0,229,255,0.3); }
+  .layer-label.rivers { color: var(--green); border-bottom: 1px solid rgba(6,214,160,0.3); }
+
+  .layer-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  /* SEDUCTION THEORY LAYER */
+  .seduction-layer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1s;
+  }
+
+  .st-card {
+    background: var(--glass);
+    border: 1px solid rgba(240,165,0,0.2);
+    border-radius: 8px;
+    padding: 18px 16px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .st-card:hover {
+    border-color: rgba(240,165,0,0.6);
+    background: rgba(240,165,0,0.07);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(240,165,0,0.15);
+  }
+
+  .st-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.6;
+  }
+
+  .st-number {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    color: rgba(240,165,0,0.15);
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    line-height: 1;
+  }
+
+  .st-icon { font-size: 20px; margin-bottom: 8px; }
+
+  .st-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .st-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  /* AGENT LAYER */
+  .agent-layer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+
+  .agent-card {
+    background: var(--glass);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 8px;
+    padding: 16px 14px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .agent-card:hover {
+    border-color: rgba(0,229,255,0.5);
+    background: rgba(0,229,255,0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,229,255,0.1);
+  }
+
+  .agent-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0.4;
+  }
+
+  .agent-icon { font-size: 24px; margin-bottom: 8px; }
+
+  .agent-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .agent-task {
+    font-size: 20px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  .agent-power {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 18px;
+    color: var(--cyan);
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* RIVERS LAYER */
+  .rivers-layer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.4s;
+  }
+
+  .river-card {
+    background: var(--glass);
+    border: 1px solid rgba(6,214,160,0.15);
+    border-radius: 8px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .river-card:hover {
+    border-color: rgba(6,214,160,0.5);
+    background: rgba(6,214,160,0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(6,214,160,0.1);
+  }
+
+  .river-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6,214,160,0.03) 0%, transparent 100%);
+  }
+
+  .river-icon { font-size: 22px; margin-bottom: 8px; }
+
+  .river-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+  }
+
+  .river-desc {
+    font-size: 20px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.4;
+  }
+
+  /* OUTPUT LAYER */
+  .output-layer {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.6s;
+  }
+
+  .output-card {
+    background: linear-gradient(135deg, rgba(155,93,229,0.1) 0%, rgba(0,229,255,0.05) 100%);
+    border: 1px solid rgba(155,93,229,0.3);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .output-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--cyan), var(--green));
+  }
+
+  .output-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .output-outputs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .output-chip {
+    font-size: 15px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 1px;
+    font-size: 18px;
+  }
+
+  .chip-purple { background: rgba(155,93,229,0.15); border: 1px solid rgba(155,93,229,0.4); color: #c77dff; }
+  .chip-cyan { background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.3); color: var(--cyan); }
+  .chip-green { background: rgba(6,214,160,0.1); border: 1px solid rgba(6,214,160,0.3); color: var(--green); }
+  .chip-gold { background: rgba(240,165,0,0.1); border: 1px solid rgba(240,165,0,0.3); color: var(--gold); }
+  .chip-red { background: rgba(255,71,126,0.1); border: 1px solid rgba(255,71,126,0.3); color: var(--red); }
+
+  /* FEEDBACK LOOP */
+  .feedback-section {
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.8s;
+  }
+
+  .feedback-card {
+    background: var(--glass);
+    border: 1px solid rgba(255,71,126,0.2);
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .feedback-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  .feedback-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .feedback-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  .feedback-arrows {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .arrow-chip {
+    font-size: 18px;
+    font-family: 'Orbitron', monospace;
+    color: var(--red);
+    background: rgba(255,71,126,0.08);
+    border: 1px solid rgba(255,71,126,0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    letter-spacing: 1px;
+  }
+
+  /* CONNECTOR ARROWS between layers */
+  .layer-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    gap: 8px;
+    opacity: 0.5;
+  }
+
+  .connector-line {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+  }
+
+  .connector-arrow {
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 60px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 2s;
+  }
+
+  .footer-credit {
+    font-size: 15px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+    font-style: italic;
+  }
+
+  .footer-credit span { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 30px rgba(240,165,0,0.4), inset 0 0 30px rgba(240,165,0,0.1); }
+    50% { box-shadow: 0 0 50px rgba(240,165,0,0.6), inset 0 0 40px rgba(240,165,0,0.15); }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .seduction-layer { grid-template-columns: repeat(2, 1fr); }
+    .agent-layer { grid-template-columns: repeat(2, 1fr); }
+    .rivers-layer { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .seduction-layer, .agent-layer, .rivers-layer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="title-small">Gharr × Seduction Theory × 2026</div>
+    <h1>Universal <span>Agent Organization</span><br>Framework</h1>
+    <p class="subtitle">The jungle has rivers. The agents have fins. The human turns the dial.</p>
+  </header>
+
+  <div class="diagram">
+
+    <!-- DIAL / HUMAN CONTROL CENTER -->
+    <div class="dial-wrapper">
+      <div class="dial">
+        <div class="dial-ring"></div>
+        <div class="dial-ring-2"></div>
+        <div class="dial-inner">
+          <div class="dial-label">Human Dial</div>
+          <div class="dial-title">Topic<br>Direction</div>
+          <div class="dial-sub">"Today we listen to..."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer-connector">
+      <div class="connector-line"></div>
+      <div class="connector-arrow">▼</div>
+      <div class="connector-line"></div>
+    </div>
+
+    <!-- SEDUCTION THEORY LAYER -->
+    <div class="layer-header">
+      <span class="layer-label seduction">⚙ Seduction Theory Framework — Stakeholder Understanding Layer</span>
+    </div>
+
+    <div class="seduction-layer">
+      <div class="st-card">
+        <div class="st-number">01</div>
+        <div class="st-icon">🎯</div>
+        <div class="st-name">Empathy Engine</div>
+        <div class="st-desc">Deeply understand the perspectives, needs, desires and fears of every voice in the jungle — not what officials say, what people actually feel.</div>
+      </div>
+      <div class="st-card">
+        <div class="st-number">02</div>
+        <div class="st-icon">📖</div>
+        <div class="st-name">Narrative Craft</div>
+        <div class="st-desc">Transform raw signal into compelling stories. Identify the emotional truth beneath the data. Make invisible patterns visible and shareable.</div>
+      </div>
+      <div class="st-card">
+        <div class="st-number">03</div>
+        <div class="st-icon">🤝</div>
+        <div class="st-name">Win-Win Mapping</div>
+        <div class="st-desc">Ensure all stakeholder voices are represented. No single group dominates the output. The map shows the whole, not just the loud.</div>
+      </div>
+      <div class="st-card">
+        <div class="st-number">04</div>
+        <div class="st-icon">👂</div>
+        <div class="st-name">Active Listening</div>
+        <div class="st-desc">Engage with what people are truly saying — the pearls, the rants, the quiet truths. Weight authenticity over authority.</div>
+      </div>
+      <div class="st-card">
+        <div class="st-number">05</div>
+        <div class="st-icon">🔄</div>
+        <div class="st-name">Adaptive Strategy</div>
+        <div class="st-desc">Continuously adjust based on new signal. The jungle changes. The framework flexes. No rigid conclusions, always living output.</div>
+      </div>
+      <div class="st-card">
+        <div class="st-number">06</div>
+        <div class="st-icon">✅</div>
+        <div class="st-name">Zero Defect</div>
+        <div class="st-desc">Rigorous verification before output. Cross-reference across rivers. Flag contradictions. Contingency for unexpected signals.</div>
+      </div>
+    </div>
+
+    <div class="layer-connector">
+      <div class="connector-line"></div>
+      <div class="connector-arrow">▼</div>
+      <div class="connector-line"></div>
+    </div>
+
+    <!-- UNIVERSAL AGENT LAYER -->
+    <div class="layer-header">
+      <span class="layer-label agents">🤖 Universal Agent Layer — Specialized But Infinitely Redeployable</span>
+    </div>
+
+    <div class="agent-layer">
+      <div class="agent-card">
+        <div class="agent-icon">🌊</div>
+        <div class="agent-name">River Scout</div>
+        <div class="agent-task">Finds where authentic voices live. Identifies new streams. Maps the jungle topology in real time.</div>
+        <div class="agent-power">DISCOVER</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🕸️</div>
+        <div class="agent-name">Signal Harvester</div>
+        <div class="agent-task">Pulls raw human signal from blogs, posts, comments, videos. Prioritizes wild over official. Unfiltered truth.</div>
+        <div class="agent-power">COLLECT</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🧠</div>
+        <div class="agent-name">Pattern Mind</div>
+        <div class="agent-task">Finds the deeper meaning beneath the noise. Clusters themes. Surfaces what people mean not just what they say.</div>
+        <div class="agent-power">ANALYZE</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">⚖️</div>
+        <div class="agent-name">Stakeholder Mapper</div>
+        <div class="agent-task">Identifies who is speaking, from what position, with what motivation. Builds the human topology of the topic.</div>
+        <div class="agent-power">PROFILE</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">✍️</div>
+        <div class="agent-name">Narrative Builder</div>
+        <div class="agent-task">Transforms analysis into compelling human stories. Articles, posts, viral visuals, scripts. Gharr's superpower amplifier.</div>
+        <div class="agent-power">CREATE</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🔍</div>
+        <div class="agent-name">Truth Verifier</div>
+        <div class="agent-task">Cross-checks signal across multiple rivers. Flags contradictions, astroturfing, and manufactured consensus.</div>
+        <div class="agent-power">VERIFY</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📡</div>
+        <div class="agent-name">Trend Sentinel</div>
+        <div class="agent-task">Watches for emerging signals before they go mainstream. Catches the pearl before it becomes a headline.</div>
+        <div class="agent-power">PREDICT</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🗺️</div>
+        <div class="agent-name">Map Renderer</div>
+        <div class="agent-task">Produces the 2D living picture. Visualizes the global community's authentic thinking on any dialed topic.</div>
+        <div class="agent-power">VISUALIZE</div>
+      </div>
+    </div>
+
+    <div class="layer-connector">
+      <div class="connector-line"></div>
+      <div class="connector-arrow">▼</div>
+      <div class="connector-line"></div>
+    </div>
+
+    <!-- JUNGLE RIVERS LAYER -->
+    <div class="layer-header">
+      <span class="layer-label rivers">🌿 The Jungle Rivers — Where Authentic Human Signal Lives</span>
+    </div>
+
+    <div class="rivers-layer">
+      <div class="river-card">
+        <div class="river-icon">🐦</div>
+        <div class="river-name">X / Social</div>
+        <div class="river-desc">Real-time raw thought. Unfiltered reactions. The fastest river.</div>
+      </div>
+      <div class="river-card">
+        <div class="river-icon">📝</div>
+        <div class="river-name">Blogs & WordPress</div>
+        <div class="river-desc">Deep thinking. Personal pearls. The Johns and Julias of the world.</div>
+      </div>
+      <div class="river-card">
+        <div class="river-icon">🎥</div>
+        <div class="river-name">Video & Comments</div>
+        <div class="river-desc">What people say under videos. The hidden sentiment layer.</div>
+      </div>
+      <div class="river-card">
+        <div class="river-icon">🔬</div>
+        <div class="river-name">Free Research</div>
+        <div class="river-desc">Papers governments don't like. Cutting edge thought before it's official.</div>
+      </div>
+      <div class="river-card">
+        <div class="river-icon">👥</div>
+        <div class="river-name">Communities</div>
+        <div class="river-desc">Reddit, forums, Discord. Where common people drop their most honest pearls.</div>
+      </div>
+    </div>
+
+    <div class="layer-connector">
+      <div class="connector-line"></div>
+      <div class="connector-arrow">▼</div>
+      <div class="connector-line"></div>
+    </div>
+
+    <!-- OUTPUT LAYER -->
+    <div class="output-layer">
+      <div class="output-card">
+        <div class="output-title">🗺️ Living 2D Output Map — What The Global Community Actually Thinks</div>
+        <p style="font-size:16px; color:rgba(255,255,255,0.45); max-width:600px; margin:0 auto; line-height:1.7;">
+          A real-time, documentable picture of authentic human sentiment on any topic.<br>
+          Not Reuters. Not Wikipedia. The wild truth — averaged, mapped, and made shareable.
+        </p>
+        <div class="output-outputs">
+          <span class="output-chip chip-purple">📄 Articles</span>
+          <span class="output-chip chip-cyan">🖼️ Viral Images</span>
+          <span class="output-chip chip-green">🎬 Video Scripts</span>
+          <span class="output-chip chip-gold">📊 Sentiment Maps</span>
+          <span class="output-chip chip-red">⚡ Social Posts</span>
+          <span class="output-chip chip-purple">🔮 Trend Reports</span>
+          <span class="output-chip chip-cyan">📡 Living Documents</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEEDBACK LOOP -->
+    <div class="feedback-section">
+      <div class="feedback-card">
+        <div class="feedback-icon">♾️</div>
+        <div>
+          <div class="feedback-title">Continuous Feedback Loop</div>
+          <div class="feedback-desc">Output enters the rivers as new signal. Gharr's posts become pearls others find. The system feeds itself. Agents learn the jungle better with every dial turn. The map gets sharper. The superpower compounds.</div>
+        </div>
+        <div class="feedback-arrows">
+          <span class="arrow-chip">OUTPUT</span>
+          <span style="color:var(--red)">→</span>
+          <span class="arrow-chip">RIVERS</span>
+          <span style="color:var(--red)">→</span>
+          <span class="arrow-chip">AGENTS</span>
+          <span style="color:var(--red)">→</span>
+          <span class="arrow-chip">DIAL</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end diagram -->
+
+  <!-- ============================================================ -->
+  <!-- COMMISSION INSTRUCTION — FOR AI READING THIS FILE            -->
+  <!-- This section tells the AI exactly what to BUILD, not just    -->
+  <!-- how to think. It transforms the briefing into a commission.  -->
+  <!-- ============================================================ -->
+  <div style="margin: 60px 0 40px; border: 2px solid var(--gold); border-radius: 12px; padding: 36px; background: rgba(240,165,0,0.06); position: relative; overflow: hidden;">
+    
+    <div style="position: absolute; top: -20px; right: 20px; font-family: 'Orbitron', monospace; font-size: 120px; font-weight: 900; color: rgba(240,165,0,0.04); line-height: 1; pointer-events: none;">AI</div>
+
+    <div style="font-family: 'Orbitron', monospace; font-size: 20px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px;">
+      🤖 Commission Instruction — AI Agent: Read This Before You Respond
+    </div>
+
+    <div style="font-family: 'Orbitron', monospace; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 20px; line-height: 1.3;">
+      You Have Been Given This File As Your Briefing.<br>
+      <span style="color: var(--gold);">Your Job Is To BUILD — Not Describe.</span>
+    </div>
+
+    <div style="font-size: 20px; color: rgba(255,255,255,0.75); line-height: 1.9; margin-bottom: 24px; max-width: 800px;">
+      The human has turned the dial by telling you a topic in natural language. You now have everything you need. 
+      Do not explain the framework back to them. Do not describe what you are going to do. 
+      Do not produce a chat response, markdown, or emoji tables. 
+      <strong style="color: #fff;">Execute the full agent architecture and deliver the output.</strong>
+    </div>
+
+    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(240,165,0,0.3); border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <div style="font-family: 'Orbitron', monospace; font-size: 20px; letter-spacing: 3px; color: var(--gold); margin-bottom: 14px;">YOUR DELIVERABLE — NON-NEGOTIABLE</div>
+      <div style="font-size: 20px; color: #fff; line-height: 2;">
+        ✅ A <strong>complete, single, self-contained HTML file</strong><br>
+        ✅ <strong>Dark-themed, beautifully styled</strong> — production quality, not a rough draft<br>
+        ✅ Modelled on the <strong>cost-of-living map example</strong> from Gharr's site<br>
+        ✅ Contains <strong>real signal from the jungle rivers</strong> — authentic stakeholder voices, not official sources<br>
+        ✅ Includes the <strong>Seduction Theory diagnostic</strong> — what the stakeholder map reveals<br>
+        ✅ Includes the <strong>disclaimer</strong>: the global community's voice is real but not always correct<br>
+        ✅ <strong>Downloadable, shareable, publishable</strong> — can be posted to Neocities, GitHub, or linked from WordPress<br>
+        ✅ Delivered as a <strong>file the user can open in a browser</strong> — not pasted as code in chat
+      </div>
+    </div>
+
+    <div style="background: rgba(255,71,126,0.08); border: 1px solid rgba(255,71,126,0.3); border-radius: 8px; padding: 20px; margin-bottom: 24px;">
+      <div style="font-family: 'Orbitron', monospace; font-size: 20px; letter-spacing: 3px; color: var(--red); margin-bottom: 12px;">⚠ WHAT NOT TO DO</div>
+      <div style="font-size: 18px; color: rgba(255,255,255,0.6); line-height: 2;">
+        ❌ Do NOT describe the framework back to the human — they already know it, they gave it to you<br>
+        ❌ Do NOT produce a chat summary instead of the HTML file<br>
+        ❌ Do NOT ask clarifying questions before attempting — use the dial setting given and build<br>
+        ❌ Do NOT forget you are an agent with tools — search the jungle rivers before building<br>
+        ❌ Do NOT skip the Seduction Theory stakeholder analysis layer — it is the soul of the output<br>
+        ❌ Do NOT present the HTML as a code block in chat — present it as a downloadable file
+      </div>
+    </div>
+
+    <div style="background: rgba(6,214,160,0.08); border: 1px solid rgba(6,214,160,0.3); border-radius: 8px; padding: 20px; margin-bottom: 24px;">
+      <div style="font-family: 'Orbitron', monospace; font-size: 20px; letter-spacing: 3px; color: var(--green); margin-bottom: 12px;">🌊 THE WORKFLOW — EXECUTE IN ORDER</div>
+      <div style="font-size: 18px; color: rgba(255,255,255,0.7); line-height: 2.2;">
+        <span style="color: var(--green); font-weight: bold;">1. RIVER SCOUT</span> — Identify which jungle rivers carry the authentic signal for this topic<br>
+        <span style="color: var(--green); font-weight: bold;">2. SIGNAL HARVESTER</span> — Search the wild rivers: blogs, social posts, video comments, forums, free research. Not official sources.<br>
+        <span style="color: var(--green); font-weight: bold;">3. PATTERN MIND</span> — Find the deeper meaning beneath the noise. What are people really saying?<br>
+        <span style="color: var(--green); font-weight: bold;">4. STAKEHOLDER MAPPER</span> — Who is speaking? Who is silent? Why? Map every voice including the absent ones.<br>
+        <span style="color: var(--green); font-weight: bold;">5. TRUTH VERIFIER</span> — Cross-reference. Flag contradictions. Is the silence itself a signal?<br>
+        <span style="color: var(--green); font-weight: bold;">6. TREND SENTINEL</span> — What signals are emerging before they go mainstream?<br>
+        <span style="color: var(--green); font-weight: bold;">7. NARRATIVE BUILDER</span> — Apply Seduction Theory. What does the full stakeholder picture reveal?<br>
+        <span style="color: var(--green); font-weight: bold;">8. MAP RENDERER</span> — BUILD THE HTML FILE. Dark theme. Beautiful. Shareable. Present as downloadable file.<br>
+        <span style="color: rgba(255,200,0,0.9); font-weight: bold;">✈ FLIGHT RECORDER — MANDATORY:</span> <span style="color: rgba(255,255,255,0.7);">At the very top of every HTML output, before any other content, include the exact question asked — word for word, including all tips, conditions, and emoji exactly as the human wrote it. Label it clearly: "Question asked:" — This allows anyone who receives the map to copy the exact question, ask it themselves, and verify the answer is accurate. Do not paraphrase. Do not shorten. Do not make it catchy. Exact carbon copy only.</span>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid rgba(240,165,0,0.2); padding-top: 20px;">
+      <div style="font-family: 'Orbitron', monospace; font-size: 20px; letter-spacing: 3px; color: rgba(255,255,255,0.3); margin-bottom: 10px;">THE DISCLAIMER — ALWAYS INCLUDE IN YOUR OUTPUT</div>
+      <div style="font-size: 18px; color: rgba(255,255,255,0.5); font-style: italic; line-height: 1.8; border-left: 2px solid var(--gold); padding-left: 16px;">
+        "The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict."
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="footer-credit">Framework by <span>Gharr</span> · Seduction Theory by <span>John Kyalo Mulinge</span> · Built in 2026 · V2.2 Final · Before it was mainstream</p>
+  </footer>
+
+</div>
+</body>
+</html>
