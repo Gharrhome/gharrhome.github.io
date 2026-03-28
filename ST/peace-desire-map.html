@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is the Desire for PEACE Universal? | Gharr × Seduction Theory × 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111418;
+    --surface2: #181c22;
+    --border: #1f2430;
+    --accent: #c8a96e;
+    --accent2: #7eb8c9;
+    --accent3: #a67db8;
+    --accent4: #6eb88a;
+    --accent5: #c97e7e;
+    --text: #d4cfc8;
+    --text-dim: #7a7870;
+    --text-bright: #ede8e0;
+    --dove: rgba(200, 169, 110, 0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* FLIGHT RECORDER — Question Asked */
+  .flight-recorder {
+    background: #0d0f12;
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 20px 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+  .flight-recorder .label {
+    color: var(--accent);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .flight-recorder .question-text {
+    color: #9a9590;
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '☮';
+    position: absolute;
+    right: 0;
+    top: 40px;
+    font-size: 280px;
+    opacity: 0.03;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .byline {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .byline::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text-bright);
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-dim);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.03em;
+    max-width: 540px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .verdict-bar {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 48px;
+    max-width: 600px;
+  }
+
+  .verdict-seg {
+    padding: 12px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .verdict-seg.yes { background: rgba(110,184,138,0.12); color: var(--accent4); border-right: 1px solid var(--border); }
+  .verdict-seg.but { background: rgba(200,169,110,0.08); color: var(--accent); border-right: 1px solid var(--border); }
+  .verdict-seg.gap { background: rgba(201,126,126,0.1); color: var(--accent5); }
+
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot.g { background: var(--accent4); }
+  .dot.a { background: var(--accent); }
+  .dot.r { background: var(--accent5); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* SECTION HEADING */
+  .sec-head {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .sec-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* VOICE CARDS */
+  .voices-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 620px) {
+    .voices-grid { grid-template-columns: 1fr; }
+  }
+
+  .voice-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .voice-card:hover { border-color: #2a3040; }
+
+  .voice-card::before {
+    content: '"';
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    font-size: 64px;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+    color: rgba(200,169,110,0.12);
+    font-style: italic;
+  }
+
+  .voice-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .voice-quote {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-bright);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .voice-source {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* TENSION CARD — wide single */
+  .tension-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent5);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+
+  .tension-card .tc-head {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent5);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* STAT STRIP */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 620px) {
+    .stat-strip { grid-template-columns: 1fr 1fr; }
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* SEDUCTION THEORY ANALYSIS */
+  .st-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    padding: 40px;
+    margin-bottom: 48px;
+  }
+
+  .st-block h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+
+  .st-block .st-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 620px) {
+    .pillars { grid-template-columns: 1fr; }
+  }
+
+  .pillar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px 20px;
+  }
+
+  .pillar-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .pillar-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .pillar p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* HOW TO ACHIEVE */
+  .achieve-list {
+    counter-reset: achieve;
+    list-style: none;
+    margin-bottom: 48px;
+  }
+
+  .achieve-list li {
+    counter-increment: achieve;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .achieve-list li::before {
+    content: counter(achieve, decimal-leading-zero);
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.5;
+    line-height: 1.3;
+    text-align: right;
+  }
+
+  .achieve-list li .ai-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+
+  .achieve-list li p {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* SILENT VOICES */
+  .silent-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent3);
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .silent-block h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .silent-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .silent-item .si-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .silent-item p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* MAP VISUALIZATION */
+  .map-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .peace-spectrum {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .ps-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 80px;
+    gap: 16px;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    .ps-row { grid-template-columns: 120px 1fr 60px; }
+  }
+
+  .ps-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+    text-align: right;
+  }
+
+  .ps-bar-wrap {
+    background: var(--bg);
+    height: 24px;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ps-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1.5s ease;
+  }
+
+  .ps-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-align: right;
+  }
+
+  /* TREND SENTINEL */
+  .trends-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 600px) {
+    .trends-grid { grid-template-columns: 1fr; }
+  }
+
+  .trend-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+  }
+
+  .trend-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trend-tag .arrow { font-size: 14px; }
+
+  .trend-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+
+  .trend-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 32px 36px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .disclaimer::before {
+    content: '⚠';
+    position: absolute;
+    top: 28px;
+    right: 32px;
+    font-size: 20px;
+    opacity: 0.2;
+  }
+
+  .disclaimer h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  .disclaimer p {
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--text-bright);
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  footer span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  footer .acct { color: var(--accent); }
+
+  /* Prose body */
+  .body-text {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 24px;
+    max-width: 700px;
+  }
+
+  .body-text strong {
+    color: var(--text-bright);
+    font-weight: 600;
+  }
+
+  /* Pull quote */
+  .pull {
+    border-left: 3px solid var(--accent);
+    padding: 8px 0 8px 28px;
+    margin: 32px 0;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--text-bright);
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 620px;
+  }
+
+  /* Fade-in animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  section:nth-child(2) { animation-delay: 0.1s; }
+  section:nth-child(3) { animation-delay: 0.2s; }
+  section:nth-child(4) { animation-delay: 0.3s; }
+  section:nth-child(5) { animation-delay: 0.4s; }
+
+  .color-g { color: var(--accent4); }
+  .color-a { color: var(--accent); }
+  .color-r { color: var(--accent5); }
+  .color-b { color: var(--accent2); }
+  .color-p { color: var(--accent3); }
+</style>
+</head>
+<body>
+
+<!-- FLIGHT RECORDER -->
+<div class="flight-recorder">
+  <span class="label">✈ Flight Recorder — Question Asked (exact carbon copy):</span>
+  <div class="question-text">Is the Desire for PEACE is universal! If So, if that is the case, how can we achieve it?</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="byline">Gharr × Seduction Theory × 2026 &nbsp;|&nbsp; Living Map</div>
+  <h1>Is the desire for <em>peace</em><br>truly universal?</h1>
+  <p class="hero-sub">A Seduction Theory stakeholder map. What the global jungle actually says — not what governments claim, not what headlines report. The wild truth, averaged.</p>
+  <div class="verdict-bar">
+    <div class="verdict-seg yes"><div class="dot g"></div>Yes — the desire is universal</div>
+    <div class="verdict-seg but"><div class="dot a"></div>But definitions diverge wildly</div>
+    <div class="verdict-seg gap"><div class="dot r"></div>The gap is the crisis</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SIGNAL OVERVIEW -->
+  <section>
+    <div class="sec-head">01 — Pattern Mind · What the rivers say</div>
+
+    <p class="body-text">
+      Across every river in the jungle — from Quora threads to war-zone testimonies, from philosophy forums to battlefield photographs — a single signal emerges with overwhelming consistency: <strong>ordinary people do not want war.</strong> They want their families safe. They want to sleep without sirens. They want to eat. They want to be seen.
+    </p>
+    <p class="body-text">
+      But here is what the map also reveals: <strong>people want very different things they call "peace."</strong> An Israeli teenager wants peace from rockets. A Palestinian mother wants peace from occupation. A Colombian villager wants peace from paramilitaries plus clean water. A Sudanese woman wants peace that includes justice — not just the absence of shooting. When these definitions collide, even people who all want "peace" end up at war.
+    </p>
+
+    <div class="pull">"Peace is not only the absence of conflict — peace is the persistence of life, connection, and dignity even when everything around you is falling apart."<br><span style="font-family:'Space Mono',monospace;font-size:12px;font-style:normal;color:var(--text-dim);">— War photographer Ximena Borrazás, UN, March 2025</span></div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- STAT STRIP -->
+  <section>
+    <div class="sec-head">02 — Signal Harvester · The hard numbers</div>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <span class="stat-num color-r">59</span>
+        <span class="stat-label">Active state-based conflicts in 2025 — highest since WWII</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num color-r">240K</span>
+        <span class="stat-label">People killed by violent conflict in 2025</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num color-r">6th</span>
+        <span class="stat-label">Consecutive year of global peace deterioration (Global Peace Index)</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num color-a">$19.97T</span>
+        <span class="stat-label">Global economic cost of violence in 2024 — 11.6% of world GDP</span>
+      </div>
+    </div>
+
+    <div class="tension-card">
+      <div class="tc-head">⚡ The central contradiction</div>
+      <p class="body-text" style="margin-bottom:0;">
+        Global peacefulness has deteriorated in <strong>13 of the past 17 years</strong>, yet virtually every survey, every forum thread, every warzone testimony says the same thing: people want peace. This is not a contradiction in human desire — it is a contradiction between what people feel and what their <strong>leaders, institutions, and historical grievances</strong> produce. The jungle is full of people who want peace living inside systems designed to wage war.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- AUTHENTIC VOICES -->
+  <section>
+    <div class="sec-head">03 — River Scout · Voices from the jungle</div>
+
+    <div class="voices-grid">
+      <div class="voice-card">
+        <div class="voice-tag"><div class="dot g"></div><span class="color-g">From a war zone — Ukraine</span></div>
+        <p class="voice-quote">What struck me most was not the destruction but the resilience, dignity, and life that persisted despite unimaginable loss. Laughter between families sharing a meal. Children learning to read in makeshift classrooms.</p>
+        <div class="voice-source">📷 War photographer reporting from Ukraine, UN "My Peace" series, 2025</div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-tag"><div class="dot a"></div><span class="color-a">From Israel — young voice</span></div>
+        <p class="voice-quote">We don't want to kill them. There are people in Gaza not thinking like Hamas thinks. A lot of the people want peace. The world doesn't know that Israel wants peace.</p>
+        <div class="voice-source">📺 PBS Student Voices series — Israeli teenager, during the conflict</div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-tag"><div class="dot p"></div><span class="color-p">From women's coalition — global</span></div>
+        <p class="voice-quote">We say no to war, violence and genocide. In every conflict, marginalized communities bear the heaviest cost. Women's bodies must never be treated as battlegrounds.</p>
+        <div class="voice-source">🌐 Together for Tranquillity coalition statement, March 2026 — 350+ organizations across India</div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-tag"><div class="dot b"></div><span class="color-b">From Colombia — community</span></div>
+        <p class="voice-quote">In Colombia, many communities told us they felt at peace when they had the infrastructure necessary to supply basic needs, like clean water, or when they could actively participate in regular social gatherings.</p>
+        <div class="voice-source">📚 Researchers at Columbia & UC Berkeley, "Everyday Peace Indicators" study, 2025</div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-tag"><div class="dot g"></div><span class="color-g">From philosophy — Quora voices</span></div>
+        <p class="voice-quote">Every person wants to end their suffering and live in happiness. Until they understand that in order to ease their suffering, they must ease the suffering of everyone around them, they will remain deluded by greed.</p>
+        <div class="voice-source">🌐 Quora — authentic thread: "Do you think people actually want world peace?" — top answer</div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-tag"><div class="dot r"></div><span class="color-r">From war research — the hard truth</span></div>
+        <p class="voice-quote">War occurs because people have serious disagreements about important questions and values — things they cherish so much they would rather fight than compromise. But governments can create conditions that make war less likely.</p>
+        <div class="voice-source">📖 Prof. Alex Bellamy, University of Queensland — "Is World Peace Possible?", The Conversation, Jan 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PEACE SPECTRUM MAP -->
+  <section>
+    <div class="sec-head">04 — Map Renderer · The sentiment spectrum</div>
+
+    <div class="map-container">
+      <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">Who wants peace — and how much do they agree on what it means?</p>
+
+      <div class="peace-spectrum">
+        <div class="ps-row">
+          <div class="ps-label">Ordinary civilians</div>
+          <div class="ps-bar-wrap"><div class="ps-bar" style="width:96%;background:linear-gradient(90deg,#6eb88a,#4a9e6e);"></div></div>
+          <div class="ps-val color-g">96%</div>
+        </div>
+        <div class="ps-row">
+          <div class="ps-label">Soldiers in active war</div>
+          <div class="ps-bar-wrap"><div class="ps-bar" style="width:78%;background:linear-gradient(90deg,#c8a96e,#a07838);"></div></div>
+          <div class="ps-val color-a">78%</div>
+        </div>
+        <div class="ps-row">
+          <div class="ps-label">Displaced / refugees</div>
+          <div class="ps-bar-wrap"><div class="ps-bar" style="width:99%;background:linear-gradient(90deg,#7eb8c9,#4a90a4);"></div></div>
+          <div class="ps-val color-b">99%</div>
+        </div>
+        <div class="ps-row">
+          <div class="ps-label">Political leaders</div>
+          <div class="ps-bar-wrap"><div class="ps-bar" style="width:52%;background:linear-gradient(90deg,#c97e7e,#9e4444);"></div></div>
+          <div class="ps-val color-r">52%</div>
+        </div>
+        <div class="ps-row">
+          <div class="ps-label">Armed militias</div>
+          <div class="ps-bar-wrap"><div class="ps-bar" style="width:31%;background:linear-gradient(90deg,#c97e7e,#7e2222);"></div></div>
+          <div class="ps-val color-r">31%</div>
+        </div>
+        <div class="ps-row">
+          <div class="ps-label">Defense / weapons industry</div>
+          <div class="ps-bar-wrap"><div class="ps-bar" style="width:22%;background:linear-gradient(90deg,#a67db8,#6a3d8a);"></div></div>
+          <div class="ps-val color-p">22%</div>
+        </div>
+      </div>
+
+      <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--text-dim);margin-top:20px;letter-spacing:0.06em;">Estimates based on synthesized jungle signal — forum discourse, research literature, conflict testimony. Not a scientific poll. The map shows sentiment direction, not precision data.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SEDUCTION THEORY DIAGNOSTIC -->
+  <section>
+    <div class="st-block">
+      <div class="st-sub">⚙ Seduction Theory Diagnostic — Stakeholder Analysis Layer</div>
+      <h2>What the full stakeholder picture reveals</h2>
+      <p class="body-text" style="max-width:100%;margin-top:20px;">
+        The jungle signal is unambiguous: <strong>the desire for peace is universal among ordinary people.</strong> But the Seduction Theory framework reveals something the headline-makers miss — the desire is universal while the <em>definition</em> is fractured. And it is institutions, not hearts, that convert the desire into either peace or war.
+      </p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar-icon">🎯</span>
+          <div class="pillar-title">The Empathy Gap</div>
+          <p>Both sides of virtually every conflict say they want peace. The tragedy is that each side's definition of peace is the other side's definition of defeat. Until we understand <em>which peace</em> each stakeholder wants, all diplomacy is theater.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">📖</span>
+          <div class="pillar-title">The Narrative War</div>
+          <p>While populations want peace, the dominant narrative infrastructure — news cycles, social feeds, political campaigns — is optimized for conflict engagement. Fear travels faster than hope. War generates more clicks than reconciliation.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">⚖️</span>
+          <div class="pillar-title">The Silent Majority Problem</div>
+          <p>Those who benefit from war — arms manufacturers, political hardliners, militia leaders — are a tiny minority. But they are loud, funded, and organized. The peace-wanting majority is large but diffuse, unorganized, and often silenced by fear.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- HOW TO ACHIEVE -->
+  <section>
+    <div class="sec-head">05 — Narrative Builder · How can we actually achieve it?</div>
+
+    <p class="body-text">Research — not ideology — has identified what actually produces peace. The forces driving war and peace are no longer mysterious. Here is what the evidence says, filtered through the jungle rivers:</p>
+
+    <ol class="achieve-list">
+      <li>
+        <div>
+          <div class="ai-title">Inner Peace First — Individual Revolution</div>
+          <p>Psychology Today's synthesis: world peace cannot be found in more laws or diplomacy alone — it must begin with individuals becoming "experts at living." Managing greed, anger, and ego before they scale into geopolitics. As Gandhi said: become the change. Not naive — structural. Inner transformation at scale reshapes what leaders get away with.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="ai-title">Democracy + Gender Equality + Fair Trade</div>
+          <p>It is now well-established in conflict research that democracy, gender equality, and fair trade are the three strongest structural predictors of peacefulness. When these decline — as they are currently doing globally — peace follows them down. The 2025 Global Peace Index confirms the correlation is not coincidence.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="ai-title">Positive Peace — Not Just Stopping the Shooting</div>
+          <p>The Institute for Economics and Peace identifies 8 pillars of "Positive Peace": well-functioning government, sound business environment, rights acceptance, good neighbor relations, free information flow, high human capital, low corruption, equitable resource distribution. Nations improving in Positive Peace achieve 3× higher GDP growth. Peace is not just quiet — it is a functioning system.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="ai-title">Share Stories Across Enemy Lines</div>
+          <p>Research and grassroots experience agree: the most powerful de-escalation tool is story-sharing. Israeli and Palestinian artists collaborating. Vietnamese and American veterans meeting. Bosnian refugees interviewing their former opponents. When humans hear each other's humanity, the architecture of hatred loses its foundation. "At the core, we are all human."</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="ai-title">Empower the Silent Peace Majority</div>
+          <p>The Seduction Theory finding: the people who want peace are the overwhelming majority but behave like a minority because they are unorganized. Peace movements, local civil society, women's coalitions, interfaith dialogue — these give structure to the diffuse desire. The Together for Tranquillity coalition (350+ organizations) in March 2026 is exactly this pattern in action.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="ai-title">Fix the International Conflict-Resolution System</div>
+          <p>Anthropologist Christopher Boehm (USC) notes that the UN system is still inadequate — it was designed for a world of clearer state actors and it struggles with asymmetric warfare, drone conflicts, and non-state actors. Reform of peacekeeping architecture is not optional — it is what the current era of "The Great Fragmentation" demands.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SILENT VOICES -->
+  <section>
+    <div class="sec-head">06 — Stakeholder Mapper · Who is silent — and why</div>
+
+    <div class="silent-block">
+      <h3>👂 The absent voices — and what their silence means</h3>
+      <div class="silent-item">
+        <span class="si-icon">🤫</span>
+        <p><strong>Civilians in active war zones</strong> — their voice is real but often physically silenced by danger, displacement, or death. The want for peace is universal here; the ability to speak it is not.</p>
+      </div>
+      <div class="silent-item">
+        <span class="si-icon">💰</span>
+        <p><strong>The defense and weapons industry</strong> — they are largely absent from peace discourse because peace is bad for their business model. Their silence in this conversation is itself a signal: they do not need to argue for war; they only need to fund the conditions that make it inevitable.</p>
+      </div>
+      <div class="silent-item">
+        <span class="si-icon">🧒</span>
+        <p><strong>Children</strong> — the generation that will inherit whatever decisions are made now. The research shows they are the loudest in wanting peace when given a voice (schools in conflict zones consistently show this), and the least listened to by decision-makers.</p>
+      </div>
+      <div class="silent-item">
+        <span class="si-icon">🌏</span>
+        <p><strong>The Global South majority</strong> — in global discourse, peace conversations are dominated by Western frameworks. The peace that a Congolese woman wants, or a Yemeni child, or a Myanmar farmer, is rarely the peace being discussed at diplomatic tables. Their silence in the official conversation is a structural injustice, not a lack of desire.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TREND SENTINEL -->
+  <section>
+    <div class="sec-head">07 — Trend Sentinel · Signals emerging before the headlines</div>
+
+    <div class="trends-grid">
+      <div class="trend-card">
+        <div class="trend-tag color-g"><span class="arrow">↑</span> Rising signal</div>
+        <h4>Women-led peace networks</h4>
+        <p>Women's coalitions like Together for Tranquillity (India, 2025) are organizing across national borders at unprecedented speed. Women lead peace efforts more often than they lead wars — and this pattern is accelerating.</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-tag color-g"><span class="arrow">↑</span> Rising signal</div>
+        <h4>Youth refusing inherited conflicts</h4>
+        <p>Young people in conflict zones increasingly report no personal desire to fight their parents' wars. Vietnam-US youth exchange programs are a model: youth leadership for peace without waiting for permission from elders.</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-tag color-r"><span class="arrow">↑</span> Warning signal</div>
+        <h4>AI-enabled asymmetric warfare</h4>
+        <p>Drones now cost hundreds of dollars and can neutralize million-dollar assets. The number of drone manufacturers went from 6 in 2022 to 200+ in 2024. This makes conflict cheaper and more accessible — a structural threat to peace.</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-tag color-a"><span class="arrow">→</span> Emerging signal</div>
+        <h4>"Positive Peace" economics gaining traction</h4>
+        <p>Nations improving in Positive Peace achieve 3× higher GDP growth. The economic argument for peace is becoming harder to ignore. Business communities are beginning to align with peace advocates for purely financial reasons.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FINAL DIAGNOSIS -->
+  <section>
+    <div class="sec-head">08 — Final Map Reading</div>
+    <p class="body-text">
+      <strong>Yes, the desire for peace is universal.</strong> Every river in the jungle confirms it. But the question "how do we achieve it?" reveals the harder truth: the desire is universal, the tools are known, the research is clear — and yet peace is declining globally for the sixth consecutive year.
+    </p>
+    <p class="body-text">
+      The Seduction Theory diagnosis: the gap is not in human hearts. It is in the translation layer between what people feel and what institutions produce. <strong>The desire is real. The system is broken. And fixing the system is the only path to converting the universal desire into universal reality.</strong>
+    </p>
+    <div class="pull">"Peace is built in the striving. After all, peace is not something we force — it is something we comprehend together."</div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <h3>Disclaimer — Always Read This</h3>
+    <p>The global community's voice is always real. It is not always right. The distance between what people believe and what is actually happening is not a flaw in the map — it is the map's most important feature. Use it as a compass, not a verdict.</p>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <span class="acct">Framework by Gharr</span>
+  <span>Seduction Theory by John Kyalo Mulinge</span>
+  <span>Built 2026 · V2.2 Final</span>
+  <span>Before it was mainstream</span>
+</footer>
+
+</body>
+</html>
