@@ -48,8 +48,15 @@ textarea{
 .emoji_font{
 	font-family:"Segoe UI Emoji";
 }
+.emoji_plain
+{
+	font-family: "Segoe UI Emoji";
+}
 .symbol_font{
 	font-family:"Segoe UI Symbol";
+}
+.symbol_plain {
+	font-family: "Segoe UI Symbol";
 }
 .list_margins{
 	margin-right: 10px;
@@ -181,6 +188,71 @@ textarea{
 	display: table-cell;
 	font-family: "Arial Black", "Segoe UI Black", sans-serif;
 	background-color: #D9FFD9;
+}
+.spireposts
+{
+/*
+	border: 3px solid #666666;
+	padding:0px 20px 0px 20px;
+*/
+  width: 800px;              /* Fixed width like X's main column */
+  max-width: 100%;
+  margin: 0 auto;            /* Centered on page */
+  border: none;              /* No outer border */
+  border-collapse: separate;
+  border-spacing: 0 20px;    /* Space between "posts" --- I tried 4 values, but it did not seem to like that. */
+}
+.spireposts tr
+{
+}
+.spireposts td
+{
+/*
+	border-color:#333333;
+	border-style:solid;
+	border-width:3px;
+*/
+  padding: 20px;
+  box-shadow: 4px 8px 16px #808080;  /* Subtle shadow */
+  border-left: 4px solid #1DA1F2;  /* X-style blue accent */
+
+}
+.spiretable_post{
+	/* vertical-align:top; */
+	border-color:gray; 
+	border-style:solid; 
+	border-width:3px;
+	padding-left:30px; 
+	padding-right:30px; 
+  	border-collapse: separate;
+  	border-spacing: 0 20px;    /* Space between "posts" --- I tried 4 values, but it did not seem to like that. */
+}
+.spiretable_element{
+	/* vertical-align:top; */
+	border-color:gray; 
+	border-style:solid; 
+	border-width:3px; 
+	padding-left:4em; 
+	padding-right:4em; 
+	padding-top:1em; 
+	padding-bottom:1em;
+  	box-shadow: 4px 8px 16px #808080;  /* Subtle shadow */
+}
+.spireposts_blue{
+	padding-left:4em; 
+	padding-right:4em; 
+	padding-top:1em; 
+	padding-bottom:1em;
+  	box-shadow: 4px 8px 16px #808080;  /* Subtle shadow */
+  	border-left: 4px solid #1DA1F2;  /* X-style blue accent */	
+}
+.spireposts_red{
+	padding-left:4em; 
+	padding-right:4em; 
+	padding-top:1em; 
+	padding-bottom:1em;
+  	box-shadow: 4px 8px 16px #808080;  /* Subtle shadow */
+  	border-left: 4px solid #F02025;  /* X-style blue accent */	
 }
 .pagetitle
 {
@@ -572,6 +644,12 @@ select
 	font-size: 17px;
 	font-weight: bold;
 }
+.text_statement_inspiration{
+	color: #000000;
+	font-family: "Segoe Print";
+	font-size: 50px;
+	font-weight: bold;
+}
 .pencil_notice
 {
 	font-family: Arial, Helvetica, sans-serif;
@@ -796,12 +874,29 @@ select
 {
 	color: #4485B0;
 }
+.pen_blue_holodeck_post
+{
+	font-family:"Arial Black", "Segoe UI Black", sans-serif;
+	color: #4485B0;
+	font-size:18px
+}
 .pen_blue_nebula {
 	color: #99CCFF;
+}
+.pen_blue_nebula_post {
+	font-family:"Arial Black", "Segoe UI Black", sans-serif;
+	color: #99CCFF;
+	font-size:18px
 }
 .pen_blue_neutrino
 {
 	color: #002277;
+}
+.pen_blue_neutrino_post
+{
+	font-family:"Arial Black", "Segoe UI Black", sans-serif;
+	color: #002277;
+	font-size:18px
 }
 .pen_blue_neutrino_highlighter
 {
