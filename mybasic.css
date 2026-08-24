@@ -1412,6 +1412,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #440033;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1432,6 +1433,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #000044;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1451,6 +1453,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 10px;
+	line-height:2.5em;
 	background: #000044;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -1470,6 +1473,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #820000;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1490,6 +1494,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #777700;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1511,6 +1516,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #444444;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1531,6 +1537,7 @@ ol ol ol ol ol
 	color: #003300;
 	border-style: solid;
 	padding: 2px;
+	line-height:2.5em;
 	background: #AAAAAA;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1551,6 +1558,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #002233;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1571,6 +1579,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #007700;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1591,6 +1600,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #CC3300;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1611,6 +1621,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #663300;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1628,6 +1639,7 @@ ol ol ol ol ol
 .fushsiabutton {
 	border: 2px solid #000000;
 	font-size: 18px;
+	line-height:2.5em;
 	color: #FFFFFF;
 	background: fuchsia;
 	font-weight: 600;
@@ -1648,6 +1660,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: teal;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1666,6 +1679,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #003300;
 	padding: 2px;
+	line-height:2.5em;
 	background: #CCAA22;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1686,6 +1700,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #000000;
 	border-bottom-width: 2px;
 	border-top-width: 2px;
@@ -1706,6 +1721,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #000000;
 	border-bottom-width: 3px;
 	border-top-width: 3px;
@@ -1726,6 +1742,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #003300;
 	padding: 2px;
+	line-height:2.5em;
 	background: #CCAA22;
 	border-bottom-width: 4px;
 	border-top-width: 4px;
@@ -1744,6 +1761,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #003300;
 	padding: 2px;
+	line-height:2.5em;
 	background: #AAAAAA;
 	border-bottom-width: 4px;
 	border-top-width: 4px;
@@ -1764,6 +1782,7 @@ ol ol ol ol ol
 	font-size: 18px;
 	color: #CCFFCC;
 	padding: 2px;
+	line-height:2.5em;
 	background: #001122;
 	border-bottom-width: 4px;
 	border-top-width: 4px;
@@ -1781,6 +1800,7 @@ ol ol ol ol ol
 .slatebluedoublebutton {
 	border: 6px double #04C0FF;
 	font-size: 18px;
+	line-height:2.5em;
 	color: #CCFFCC;
 	padding: 2px;
 	background: #002233;
