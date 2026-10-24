@@ -1215,6 +1215,14 @@ ol ol ol ol ol
 	background-color: #00b0b0; 
 	text-align: center;
 }
+.post
+{
+	border-bottom: 2px solid #aaaaaa; 
+	border-top: 2px solid #aaaaaa; 
+	color: #888888; 
+	background-color: #000000;
+	text-align:center;
+}
 .empty
 {
 	color:maroon;
@@ -1775,6 +1783,27 @@ ol ol ol ol ol
 .boneoutsetbutton a:visited
 {
 	color:maroon;
+}
+.orangeoutsetbutton {
+	border-style: outset;
+	border-color: #0000FF;
+	font-size: 18px;
+	color: #003300;
+	padding: 2px;
+	line-height:2.5em;
+	background: #D93600;
+	border-bottom-width: 4px;
+	border-top-width: 4px;
+	border-left-width: 4px;
+	border-right-width: 4px;
+}
+.orangeoutsetbutton a:link
+{
+	color:#000000;	
+}
+.orangeoutsetbutton a:visited
+{
+	color:#222222;
 }
 .slateblueridgebutton {
 	border-style: ridge;
